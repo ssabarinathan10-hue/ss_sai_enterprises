@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Bag — SS Sai Enterprises</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/pages.css">
+</head>
+<body>
+<div id="chrome-header"></div>
+<div class="page-content">
+  <div class="page-banner">
+    <div class="container">
+      <div class="breadcrumbs" style="justify-content:center;margin-bottom:12px;">
+        <a href="/">Home</a><span class="sep">›</span><span class="current">Bag</span>
+      </div>
+      <h1>Your shopping bag</h1>
+      <p>Quantities and totals are saved to your account.</p>
+    </div>
+  </div>
+  <div class="container">
+    <div id="guest-prompt" style="display:none;background:rgba(198,161,91,0.12);border:1px solid var(--gold);padding:16px 20px;margin:24px 0;display:none;align-items:center;gap:12px;">
+      <span style="flex:1">Sign in to view your saved bag and check out.</span>
+      <a href="/login" class="btn btn-primary btn-sm">Sign in</a>
+    </div>
+    <div id="cart-loading" style="text-align:center;padding:80px">
+      <div class="spinner"></div>
+      <p style="margin-top:16px;color:var(--smoke)">Loading your bag…</p>
+    </div>
+    <div id="cart-empty" style="display:none">
+      <div class="empty-state" style="padding:100px 24px">
+        <h3>Your bag is empty</h3>
+        <p>Browse the collection and add a saree when you are ready.</p>
+        <a href="/shop" class="btn btn-primary btn-lg">Shop collection</a>
+      </div>
+    </div>
+    <div id="cart-content" class="cart-layout" style="display:none">
+      <div>
+        <table class="cart-table">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Saree</th>
+              <th>Price</th>
+              <th>Qty</th>
+              <th>Line total</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="cart-items-body"></tbody>
+        </table>
+        <div style="display:flex;justify-content:space-between;margin-top:20px;padding-top:20px;border-top:1px solid var(--champagne-dark);">
+          <a href="/shop" class="btn btn-outline btn-sm">Continue shopping</a>
+          <button type="button" onclick="clearAllCart()" style="font-size:0.85rem;color:var(--error);background:none">Clear bag</button>
+        </div>
+      </div>
+      <div>
+        <div class="order-summary-card">
+          <h2 class="summary-title">Order summary</h2>
+          <div class="summary-line"><span>Subtotal</span><span class="value" id="summary-subtotal">₹0</span></div>
+          <div class="summary-line" id="shipping-row"><span>Shipping</span><span class="value" id="summary-shipping">₹150</span></div>
+          <div class="summary-line"><span>GST (5%)</span><span class="value" id="summary-tax">₹0</span></div>
+          <div class="summary-line" id="discount-row" style="display:none;color:var(--success)"><span>Discount</span><span class="value" id="summary-discount">-₹0</span></div>
+          <div class="summary-line total"><span>Payable</span><span id="summary-total">₹0</span></div>
+          <p style="font-size:0.8rem;color:var(--smoke);margin:8px 0 16px">Final charges are calculated by the server when you place the order.</p>
+          <div class="coupon-input-row">
+            <label class="sr-only" for="coupon-input">Coupon code</label>
+            <input type="text" class="form-input" id="coupon-input" placeholder="Coupon code" autocomplete="off">
+            <button class="btn btn-outline btn-sm" type="button" onclick="applyCoupon()">Apply</button>
+          </div>
+          <div id="coupon-msg" style="font-size:0.82rem;margin-bottom:12px;display:none;"></div>
+          <button class="btn btn-primary btn-full btn-lg" type="button" onclick="goToCheckout()">Proceed to checkout</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="chrome-footer"></div>
+<script src="/js/config.js"></script>
+<script src="/js/api.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/cart.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/store-chrome.js"></script>
+<script>
+  document.getElementById('chrome-header').innerHTML = storeHeader('');
+  document.getElementById('chrome-footer').innerHTML = storeFooter();
+
+  let cartData = { items: [], total: 0 };
+  let appliedDiscount = 0;
+  let appliedCoupon = '';
+  let busy = false;
+
+  async function loadCart() {
+    document.getElementById('cart-loading').style.display = 'block';
+    document.getElementById('cart-content').style.display = 'none';
+    document.getElementById('cart-empty').style.display = 'none';
+    if (!auth.isLoggedIn()) {
+      document.getElementById('guest-prompt').style.display = 'flex';
+      document.getElementById('cart-loading').style.display = 'none';
+      document.getElementById('cart-empty').style.display = 'block';
+      return;
+    }
+    try {
+      const data = await api.getCart();
+      cartData = data;
+      document.getElementById('cart-loading').style.display = 'none';
+      if (!data.items || data.items.length === 0) {
+        document.getElementById('cart-empty').style.display = 'block';
+      } else {
+        document.getElementById('cart-content').style.display = 'grid';
+        renderCart(data.items);
+        updateSummary();
+      }
+    } catch (err) {
+      document.getElementById('cart-loading').innerHTML = `<div class="empty-state"><h3>Could not load bag</h3><p>${escapeHtml(err.message)}</p></div>`;
+    }
+  }
+
+  function renderCart(items) {
+    document.getElementById('cart-items-body').innerHTML = items.map(item => `
+      <tr id="cart-row-${item.id}">
+        <td><img src="${escapeHtml(item.image_url || '')}" alt="" class="cart-item-img" onerror="this.src='/images/saree_slide_1.jpg'"></td>
+        <td>
+          <div class="cart-item-name"><a href="/product/${item.product_id}">${escapeHtml(item.name)}</a></div>
+          <div class="cart-item-fabric">${escapeHtml(item.fabric || '')}</div>
+        </td>
+        <td><span class="price-current">${formatPrice(item.price)}</span></td>
+        <td>
+          <div class="qty-stepper">
+            <button class="qty-btn" type="button" onclick="updateQty(${item.id}, ${item.quantity - 1})" aria-label="Decrease">−</button>
+            <span class="qty-value" style="width:40px;display:inline-block;text-align:center">${item.quantity}</span>
+            <button class="qty-btn" type="button" onclick="updateQty(${item.id}, ${item.quantity + 1})" aria-label="Increase">+</button>
+          </div>
+        </td>
+        <td><span class="price-current">${formatPrice(item.price * item.quantity)}</span></td>
+        <td><button class="cart-remove" type="button" onclick="removeItem(${item.id})" aria-label="Remove">Remove</button></td>
+      </tr>`).join('');
+  }
+
+  function updateSummary() {
+    const subtotal = cartData.items.reduce((s, i) => s + i.price * i.quantity, 0);
+    const shipping = subtotal >= 3000 ? 0 : 150;
+    const tax = Math.round(subtotal * 0.05);
+    const discount = appliedDiscount > 0 ? Math.round(subtotal * appliedDiscount / 100) : 0;
+    const total = subtotal + shipping + tax - discount;
+    document.getElementById('summary-subtotal').textContent = formatPrice(subtotal);
+    document.getElementById('summary-shipping').textContent = shipping === 0 ? 'Free' : formatPrice(shipping);
+    document.getElementById('summary-tax').textContent = formatPrice(tax);
+    document.getElementById('summary-total').textContent = formatPrice(total);
+    document.getElementById('discount-row').style.display = discount ? 'flex' : 'none';
+    if (discount) document.getElementById('summary-discount').textContent = `-${formatPrice(discount)}`;
+  }
+
+  async function updateQty(id, qty) {
+    if (busy) return;
+    if (qty < 1) { removeItem(id); return; }
+    busy = true;
+    try {
+      await cartManager.updateItem(id, qty);
+      const item = cartData.items.find(i => i.id === id);
+      if (item) item.quantity = qty;
+      renderCart(cartData.items);
+      updateSummary();
+    } catch (err) { showToast(err.message, 'error'); }
+    busy = false;
+  }
+
+  async function removeItem(id) {
+    if (busy) return;
+    busy = true;
+    const row = document.getElementById(`cart-row-${id}`);
+    if (row) row.classList.add('cart-row-out');
+    try {
+      await cartManager.removeItem(id);
+      cartData.items = cartData.items.filter(i => i.id !== id);
+      if (!cartData.items.length) {
+        document.getElementById('cart-content').style.display = 'none';
+        document.getElementById('cart-empty').style.display = 'block';
+      } else {
+        renderCart(cartData.items);
+        updateSummary();
+      }
+      showToast('Item removed.', 'success');
+    } catch (err) { showToast(err.message, 'error'); }
+    busy = false;
+  }
+
+  async function clearAllCart() {
+    if (!confirm('Remove all items from your bag?')) return;
+    try {
+      await api.clearCart();
+      cartData.items = [];
+      await cartManager.updateBadge();
+      document.getElementById('cart-content').style.display = 'none';
+      document.getElementById('cart-empty').style.display = 'block';
+    } catch (err) { showToast(err.message, 'error'); }
+  }
+
+  async function applyCoupon() {
+    const code = document.getElementById('coupon-input').value.trim();
+    const msg = document.getElementById('coupon-msg');
+    if (!code) { showToast('Enter a coupon code.', 'error'); return; }
+    try {
+      const data = await api.validateCoupon(code);
+      appliedDiscount = data.discount_percent;
+      appliedCoupon = code;
+      msg.style.display = 'block';
+      msg.style.color = 'var(--success)';
+      msg.textContent = data.message;
+      updateSummary();
+    } catch (err) {
+      appliedDiscount = 0; appliedCoupon = '';
+      msg.style.display = 'block';
+      msg.style.color = 'var(--error)';
+      msg.textContent = err.message;
+    }
+  }
+
+  function goToCheckout() {
+    if (!auth.isLoggedIn()) { location.href = '/login'; return; }
+    if (appliedCoupon) sessionStorage.setItem('coupon', appliedCoupon);
+    location.href = '/checkout';
+  }
+
+  window.updateQty = updateQty;
+  window.removeItem = removeItem;
+  window.clearAllCart = clearAllCart;
+  window.applyCoupon = applyCoupon;
+  window.goToCheckout = goToCheckout;
+  document.addEventListener('DOMContentLoaded', loadCart);
+</script>
+</body>
+</html>

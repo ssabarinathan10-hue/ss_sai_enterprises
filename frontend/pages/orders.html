@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Orders — SS SAI Enterprises</title>
+  <meta name="description" content="Track and manage your curated saree orders from SS Sai Enterprises.">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/pages.css">
+</head>
+<body>
+<div id="chrome-header"></div>
+
+<div class="page-content">
+  <div class="page-banner">
+    <div class="container">
+      <div class="breadcrumbs" style="justify-content:center;margin-bottom:12px;">
+        <a href="/">Home</a><span class="sep">›</span><span class="current">My Orders</span>
+      </div>
+      <h1>My Orders</h1>
+      <p>Track your saree shipments, order breakdowns, and delivery timelines.</p>
+    </div>
+  </div>
+
+  <div class="container section-pad-sm" style="max-width:960px;">
+
+    <!-- Auth check -->
+    <div id="auth-required" style="display:none;">
+      <div class="empty-state">
+        <div class="empty-state-icon">🔒</div>
+        <h3>Sign In Required</h3>
+        <p>Please log in to view your orders and track past purchases.</p>
+        <a href="/login?redirect=/orders" class="btn btn-primary btn-lg">Sign In to My Account</a>
+      </div>
+    </div>
+
+    <!-- Loading -->
+    <div id="orders-loading" style="text-align:center;padding:80px;">
+      <div class="spinner"></div>
+      <p style="margin-top:16px;color:var(--smoke)">Fetching your orders from the vault…</p>
+    </div>
+
+    <!-- Empty orders -->
+    <div id="orders-empty" style="display:none;">
+      <div class="empty-state">
+        <div class="empty-state-icon">🥻</div>
+        <h3>No Orders Yet</h3>
+        <p>You haven't placed any saree orders yet. Discover our curated collection and find the perfect drape!</p>
+        <a href="/shop" class="btn btn-primary btn-lg">Explore Collection</a>
+      </div>
+    </div>
+
+    <!-- Orders List -->
+    <div id="orders-content" style="display:none;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;flex-wrap:wrap;gap:12px;">
+        <h2 style="font-family:var(--font-heading);font-size:1.5rem;color:var(--maroon);">Your Order History</h2>
+        <a href="/shop" class="btn btn-outline btn-sm">+ Shop More Sarees</a>
+      </div>
+      <div class="orders-list" id="orders-list"></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Order Detail Modal -->
+<div class="modal-overlay" id="order-modal">
+  <div class="modal" style="max-width:680px;max-height:90vh;overflow-y:auto;">
+    <div class="modal-header">
+      <h3 class="modal-title" id="modal-order-id">Order Details</h3>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div id="modal-content" style="padding:24px"></div>
+  </div>
+</div>
+
+<div id="chrome-footer"></div>
+<div id="toast-container"></div>
+
+<script src="/js/config.js"></script>
+<script src="/js/api.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/cart.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/store-chrome.js"></script>
+<script>
+  document.getElementById('chrome-header').innerHTML = storeHeader('orders');
+  document.getElementById('chrome-footer').innerHTML = storeFooter();
+
+  const STATUS_CONFIG = {
+    'Processing':  { class: 'status-processing',  step: 0, icon: '⏳' },
+    'Dispatched':  { class: 'status-dispatched',  step: 1, icon: '📦' },
+    'In Transit':  { class: 'status-transit',     step: 2, icon: '🚚' },
+    'Delivered':   { class: 'status-delivered',   step: 3, icon: '✅' },
+    'Cancelled':   { class: 'status-cancelled',   step: -1, icon: '✕' },
+  };
+
+  function getStatusStep(status) {
+    return STATUS_CONFIG[status]?.step ?? 0;
+  }
+
+  function buildTimeline(status) {
+    if (status === 'Cancelled') {
+      return `
+        <div style="padding:12px;background:#FDEDEE;color:#961E2D;border-radius:var(--radius-sm);margin:16px 0;font-size:0.85rem">
+          This order was cancelled. Please contact us on WhatsApp if you require assistance.
+        </div>`;
+    }
+    const steps = ['Processing', 'Dispatched', 'In Transit', 'Delivered'];
+    const currentStep = getStatusStep(status);
+    return `
+      <div class="order-timeline">
+        ${steps.map((s, i) => `
+          <div class="timeline-step ${i < currentStep ? 'done' : i === currentStep ? 'active' : ''}">
+            <div class="timeline-dot">${STATUS_CONFIG[s]?.icon || '•'}</div>
+            <div class="timeline-label">${s}</div>
+          </div>`).join('')}
+      </div>`;
+  }
+
+  function buildOrderCard(order) {
+    const cfg = STATUS_CONFIG[order.status] || STATUS_CONFIG['Processing'];
+    const date = new Date(order.created_at).toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' });
+
+    return `
+      <div class="order-card">
+        <div class="order-card-header">
+          <div>
+            <div class="order-id">Order #${order.id}</div>
+            <div class="order-date">Placed on ${date}</div>
+          </div>
+          <span class="order-status ${cfg.class}">${cfg.icon} ${order.status}</span>
+        </div>
+
+        ${buildTimeline(order.status)}
+
+        <div style="padding:14px 0;border-top:1px solid var(--champagne-dark);margin-top:10px;">
+          <div style="font-size:0.9rem;color:var(--charcoal);margin-bottom:8px;font-weight:500">
+            ${escapeHtml(order.items_summary || 'Curated Saree Selection')}
+          </div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            ${order.payment_method ? `<span class="badge badge-gold">Payment: ${order.payment_method}</span>` : ''}
+            ${order.coupon_code ? `<span class="badge badge-crimson">Code: ${order.coupon_code}</span>` : ''}
+          </div>
+        </div>
+
+        <div class="order-card-footer">
+          <div>
+            <div class="order-total-label">Final Payable Amount</div>
+            <div class="order-total-val">${formatPrice(order.total_amount)}</div>
+          </div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;">
+            <button class="btn btn-outline btn-sm" onclick="viewOrderDetail(${order.id})">View Details</button>
+            <a href="/shop" class="btn btn-primary btn-sm">Shop More</a>
+          </div>
+        </div>
+      </div>`;
+  }
+
+  async function loadOrders() {
+    if (!auth.isLoggedIn()) {
+      document.getElementById('orders-loading').style.display = 'none';
+      document.getElementById('auth-required').style.display = 'block';
+      return;
+    }
+    try {
+      const data = await api.getOrders();
+      document.getElementById('orders-loading').style.display = 'none';
+      if (!data.orders || data.orders.length === 0) {
+        document.getElementById('orders-empty').style.display = 'block';
+      } else {
+        document.getElementById('orders-content').style.display = 'block';
+        document.getElementById('orders-list').innerHTML = data.orders.map(buildOrderCard).join('');
+      }
+    } catch (err) {
+      document.getElementById('orders-loading').innerHTML = `
+        <div class="empty-state">
+          <div class="empty-state-icon">⚠️</div>
+          <h3>Could not load orders</h3>
+          <p>${escapeHtml(err.message || 'Please verify your session and try again.')}</p>
+        </div>`;
+    }
+  }
+
+  async function viewOrderDetail(orderId) {
+    const modal = document.getElementById('order-modal');
+    const content = document.getElementById('modal-content');
+    document.getElementById('modal-order-id').textContent = `Order #${orderId} Details`;
+    content.innerHTML = '<div style="text-align:center;padding:40px"><div class="spinner"></div></div>';
+    modal.classList.add('open');
+
+    try {
+      const data = await api.getOrder(orderId);
+      const order = data.order;
+      const date = new Date(order.created_at).toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' });
+      const cfg = STATUS_CONFIG[order.status] || STATUS_CONFIG['Processing'];
+
+      content.innerHTML = `
+        <div style="margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+          <span class="order-status ${cfg.class}">${cfg.icon} ${order.status}</span>
+          <span style="font-size:0.85rem;color:var(--smoke)">Placed on ${date}</span>
+        </div>
+
+        ${buildTimeline(order.status)}
+
+        <div style="margin:20px 0;padding:16px;background:var(--champagne);border-radius:var(--radius-md);">
+          <div style="font-weight:700;font-size:0.82rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--smoke);margin-bottom:8px;">Shipping Address</div>
+          <div style="font-size:0.9rem;color:var(--charcoal);line-height:1.6;">
+            <strong>${escapeHtml(order.shipping_name || '')}</strong><br>
+            ${escapeHtml(order.shipping_address || '')},<br>
+            ${escapeHtml(order.shipping_city || '')}, ${escapeHtml(order.shipping_state || '')} – ${escapeHtml(order.shipping_pincode || '')}<br>
+            📞 ${escapeHtml(order.shipping_phone || '')}
+          </div>
+        </div>
+
+        <div style="margin-bottom:20px;">
+          <div style="font-weight:700;font-size:0.82rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--smoke);margin-bottom:12px;">Ordered Sarees</div>
+          ${(order.items || []).map(item => `
+            <div style="display:flex;gap:14px;align-items:center;padding:12px 0;border-bottom:1px solid var(--champagne-dark);">
+              <img src="${escapeHtml(item.image_url || '/images/saree_slide_1.jpg')}" style="width:60px;height:75px;object-fit:cover;border-radius:var(--radius-sm);" onerror="this.src='/images/saree_slide_1.jpg'">
+              <div style="flex:1;">
+                <div style="font-weight:600;color:var(--charcoal);font-size:0.92rem">${escapeHtml(item.name)}</div>
+                <div style="font-size:0.78rem;color:var(--smoke)">${escapeHtml(item.fabric || '')} · Quantity: ${item.quantity}</div>
+              </div>
+              <div style="font-weight:700;color:var(--crimson)">${formatPrice(item.price * item.quantity)}</div>
+            </div>`).join('')}
+        </div>
+
+        <div style="padding:16px;background:var(--champagne);border-radius:var(--radius-md);">
+          <div class="summary-line" style="display:flex;justify-content:space-between;margin-bottom:8px;font-size:0.9rem;">
+            <span>Subtotal</span><span>${formatPrice(order.total_amount - order.shipping_amount - order.tax_amount + (order.discount_amount || 0))}</span>
+          </div>
+          <div class="summary-line" style="display:flex;justify-content:space-between;margin-bottom:8px;font-size:0.9rem;">
+            <span>Shipping</span><span>${order.shipping_amount === 0 ? 'FREE' : formatPrice(order.shipping_amount)}</span>
+          </div>
+          <div class="summary-line" style="display:flex;justify-content:space-between;margin-bottom:8px;font-size:0.9rem;">
+            <span>GST (5%)</span><span>${formatPrice(order.tax_amount)}</span>
+          </div>
+          ${order.discount_amount > 0 ? `
+            <div style="display:flex;justify-content:space-between;margin-bottom:8px;font-size:0.9rem;color:var(--success);">
+              <span>Discount (${escapeHtml(order.coupon_code || 'Promo')})</span><span>-${formatPrice(order.discount_amount)}</span>
+            </div>` : ''}
+          <div style="display:flex;justify-content:space-between;font-size:1.15rem;font-weight:700;color:var(--maroon);border-top:1.5px solid var(--champagne-dark);padding-top:12px;margin-top:8px;">
+            <span>Total Payable</span><span>${formatPrice(order.total_amount)}</span>
+          </div>
+          <div style="font-size:0.82rem;color:var(--smoke);margin-top:10px;">
+            Payment Method: <strong>${escapeHtml(order.payment_method || 'COD')}</strong> &nbsp;·&nbsp; Payment Status: <span style="font-weight:600;color:${order.payment_status==='Paid'?'var(--success)':'var(--warning)'}">${escapeHtml(order.payment_status || 'Pending')}</span>
+          </div>
+        </div>`;
+    } catch (err) {
+      content.innerHTML = `<p style="color:var(--error);padding:20px">${escapeHtml(err.message || 'Error loading order.')}</p>`;
+    }
+  }
+
+  function closeModal() {
+    document.getElementById('order-modal').classList.remove('open');
+  }
+
+  document.getElementById('order-modal').addEventListener('click', function(e) {
+    if (e.target === this) closeModal();
+  });
+
+  document.addEventListener('DOMContentLoaded', loadOrders);
+</script>
+</body>
+</html>

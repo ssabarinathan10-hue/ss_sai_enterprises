@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product — SS Sai Enterprises</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/pages.css">
+</head>
+<body>
+<div id="chrome-header"></div>
+<div class="page-content">
+  <div class="container" style="padding-top:32px; padding-bottom:64px;">
+    <div class="breadcrumbs" id="breadcrumbs">
+      <a href="/">Home</a><span class="sep">›</span>
+      <a href="/shop">Shop</a><span class="sep">›</span>
+      <span class="current" id="bc-name">Loading…</span>
+    </div>
+    <div id="loading-state" style="text-align:center;padding:80px">
+      <div class="spinner"></div>
+      <p style="margin-top:16px;color:var(--smoke)">Loading product…</p>
+    </div>
+    <div class="product-detail" id="product-detail" style="display:none">
+      <div class="product-gallery">
+        <div class="gallery-main" id="gallery-main">
+          <img id="gallery-main-img" src="" alt="">
+        </div>
+        <div class="gallery-thumbs" id="gallery-thumbs"></div>
+      </div>
+      <div class="product-info">
+        <span class="badge badge-gold" id="product-fabric-badge"></span>
+        <h1 class="product-title" id="product-title"></h1>
+        <div class="product-rating-row">
+          <div class="stars" id="product-stars"></div>
+          <span id="product-rating-text"></span>
+          <span id="product-review-count" style="font-size:0.85rem;color:var(--smoke)"></span>
+          <span id="stock-status" class="stock-indicator"></span>
+        </div>
+        <div class="product-price-row">
+          <span class="product-price-big" id="product-price"></span>
+          <span class="product-price-orig" id="product-orig-price"></span>
+          <span class="product-discount" id="product-discount" style="display:none"></span>
+        </div>
+        <div class="product-specs">
+          <h2 style="font-size:0.82rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--smoke);margin-bottom:14px;">Saree details</h2>
+          <div class="product-spec-grid" id="product-specs"></div>
+        </div>
+        <div class="product-qty-row">
+          <label for="qty-value" style="font-size:0.88rem;font-weight:600">Quantity</label>
+          <div class="qty-stepper">
+            <button class="qty-btn" type="button" onclick="changeQty(-1)" aria-label="Decrease quantity">−</button>
+            <input type="number" class="qty-value" id="qty-value" value="1" min="1" readonly>
+            <button class="qty-btn" type="button" onclick="changeQty(1)" aria-label="Increase quantity">+</button>
+          </div>
+        </div>
+        <div class="product-action-row">
+          <button class="btn btn-primary btn-lg" id="add-to-cart-btn" type="button">Add to cart</button>
+          <button class="btn btn-gold btn-lg" id="buy-now-btn" type="button">Buy now</button>
+        </div>
+        <p style="font-size:0.85rem;color:var(--smoke)">Free shipping on orders of ₹3,000 and above. GST is calculated at checkout.</p>
+      </div>
+    </div>
+    <div class="product-tabs" id="product-tabs" style="display:none">
+      <div class="tab-nav">
+        <button class="tab-btn active" type="button" onclick="switchTab('description', this)">Description</button>
+        <button class="tab-btn" type="button" onclick="switchTab('care', this)">Care</button>
+        <button class="tab-btn" type="button" onclick="switchTab('reviews', this)">Reviews <span id="review-tab-count"></span></button>
+      </div>
+      <div class="tab-panel active" id="tab-description"></div>
+      <div class="tab-panel" id="tab-care"><div id="care-content"></div></div>
+      <div class="tab-panel" id="tab-reviews">
+        <div id="reviews-list"></div>
+        <div id="review-form-section" style="margin-top:32px;padding:24px;background:var(--champagne);border-radius:var(--radius-md);">
+          <h2 style="font-size:1.1rem;color:var(--maroon);margin-bottom:16px;">Write a review</h2>
+          <div id="review-login-prompt" style="display:none;text-align:center;padding:16px;">
+            <p style="color:var(--smoke);margin-bottom:12px">Sign in to share a review of a saree you purchased.</p>
+            <a href="/login" class="btn btn-outline btn-sm">Sign in</a>
+          </div>
+          <form id="review-form">
+            <div class="form-group">
+              <span class="form-label">Rating</span>
+              <div style="display:flex;gap:8px;font-size:1.8rem;">
+                <button type="button" class="star-input" data-val="1" aria-label="1 star">☆</button>
+                <button type="button" class="star-input" data-val="2" aria-label="2 stars">☆</button>
+                <button type="button" class="star-input" data-val="3" aria-label="3 stars">☆</button>
+                <button type="button" class="star-input" data-val="4" aria-label="4 stars">☆</button>
+                <button type="button" class="star-input" data-val="5" aria-label="5 stars">☆</button>
+              </div>
+              <input type="hidden" id="review-rating" value="0">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="review-comment">Comments</label>
+              <textarea class="form-input" id="review-comment" rows="3"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit review</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="chrome-footer"></div>
+<script src="/js/config.js"></script>
+<script src="/js/api.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/cart.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/store-chrome.js"></script>
+<script>
+  document.getElementById('chrome-header').innerHTML = storeHeader('shop');
+  document.getElementById('chrome-footer').innerHTML = storeFooter();
+
+  let currentProduct = null;
+  let selectedRating = 0;
+  let adding = false;
+
+  function productId() {
+    const q = new URLSearchParams(location.search).get('id');
+    if (q) return q;
+    const parts = location.pathname.split('/').filter(Boolean);
+    return parts[parts.length - 1];
+  }
+
+  async function loadProduct() {
+    const id = productId();
+    if (!id || id === 'product.html') { location.href = '/shop'; return; }
+    try {
+      const data = await api.getProduct(id);
+      currentProduct = data.product;
+      renderProduct(currentProduct);
+    } catch (err) {
+      document.getElementById('loading-state').innerHTML = `
+        <div class="empty-state"><h3>Product not found</h3><p>${escapeHtml(err.message)}</p>
+        <a href="/shop" class="btn btn-outline">Back to shop</a></div>`;
+    }
+  }
+
+  function galleryImages(p) {
+    const list = (p.images && p.images.length) ? p.images : [p.image_url];
+    return [...new Set(list.filter(Boolean))];
+  }
+
+  function renderProduct(p) {
+    document.title = `${p.name} — SS Sai Enterprises`;
+    document.getElementById('bc-name').textContent = p.name;
+    document.getElementById('loading-state').style.display = 'none';
+    document.getElementById('product-detail').style.display = 'grid';
+    document.getElementById('product-tabs').style.display = 'block';
+
+    const images = galleryImages(p);
+    const main = document.getElementById('gallery-main-img');
+    main.src = images[0] || '';
+    main.alt = p.name;
+    document.getElementById('gallery-thumbs').innerHTML = images.map((src, i) => `
+      <button type="button" class="gallery-thumb ${i === 0 ? 'active' : ''}" onclick="switchImage('${src.replace(/'/g, "\\'")}', this)">
+        <img src="${src}" alt="${escapeHtml(p.name)} image ${i + 1}">
+      </button>`).join('');
+
+    document.getElementById('product-fabric-badge').textContent = p.fabric || p.category_name || 'Saree';
+    document.getElementById('product-title').textContent = p.name;
+    if (Number(p.rating) > 0) {
+      document.getElementById('product-stars').innerHTML = renderStars(p.rating);
+      document.getElementById('product-rating-text').textContent = Number(p.rating).toFixed(1);
+      document.getElementById('product-review-count').textContent = `(${p.review_count || 0} reviews)`;
+    } else {
+      document.getElementById('product-stars').innerHTML = '';
+      document.getElementById('product-rating-text').textContent = '';
+      document.getElementById('product-review-count').textContent = 'No reviews yet';
+    }
+    document.getElementById('product-price').textContent = formatPrice(p.price);
+    const disc = discountPercent(p.original_price, p.price);
+    document.getElementById('product-orig-price').textContent = disc ? formatPrice(p.original_price) : '';
+    const discEl = document.getElementById('product-discount');
+    if (disc) { discEl.style.display = 'inline-flex'; discEl.textContent = `${disc}% off`; }
+    else discEl.style.display = 'none';
+
+    const stockEl = document.getElementById('stock-status');
+    const addBtn = document.getElementById('add-to-cart-btn');
+    const buyBtn = document.getElementById('buy-now-btn');
+    if (p.stock <= 0) {
+      stockEl.innerHTML = '<span class="stock-dot" style="background:var(--error)"></span> Out of stock';
+      addBtn.disabled = true; buyBtn.disabled = true;
+    } else if (p.stock <= 3) {
+      stockEl.innerHTML = `<span class="stock-dot" style="background:var(--warning)"></span> ${p.stock} in stock`;
+      stockEl.className = 'stock-indicator low-stock';
+    } else {
+      stockEl.innerHTML = '<span class="stock-dot" style="background:var(--success)"></span> In stock';
+      stockEl.className = 'stock-indicator in-stock';
+    }
+
+    const specs = [
+      ['Fabric', p.fabric],
+      ['Occasion', p.occasion],
+      ['Weave', p.weave_type],
+      ['Colour', p.color],
+      ['Length', p.length_meters ? `${p.length_meters} m` : ''],
+      ['Blouse piece', p.blouse_piece ? 'Included' : (p.blouse_piece === 0 ? 'Not included' : '')],
+      ['Zari', p.zari_type],
+      ['Category', p.category_name]
+    ].filter(([, v]) => v);
+    document.getElementById('product-specs').innerHTML = specs.map(([label, value]) => `
+      <div class="product-spec"><div class="spec-label">${escapeHtml(label)}</div><div class="spec-value">${escapeHtml(value)}</div></div>`).join('');
+
+    document.getElementById('tab-description').innerHTML = `<p>${escapeHtml(p.description || 'Details for this saree will be updated soon.')}</p>`;
+    document.getElementById('care-content').textContent = p.care_instructions || '';
+    document.getElementById('review-tab-count').textContent = p.review_count ? `(${p.review_count})` : '';
+    renderReviews(p.reviews || []);
+    if (!auth.isLoggedIn()) {
+      document.getElementById('review-form').style.display = 'none';
+      document.getElementById('review-login-prompt').style.display = 'block';
+    }
+    document.getElementById('qty-value').max = Math.max(1, p.stock || 1);
+  }
+
+  function switchImage(src, el) {
+    document.getElementById('gallery-main-img').src = src;
+    document.querySelectorAll('.gallery-thumb').forEach(t => t.classList.remove('active'));
+    el.classList.add('active');
+  }
+  function switchTab(name, btn) {
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(`tab-${name}`).classList.add('active');
+    btn.classList.add('active');
+  }
+  function changeQty(delta) {
+    const el = document.getElementById('qty-value');
+    const max = currentProduct?.stock || 1;
+    const next = Math.max(1, Math.min(max, parseInt(el.value, 10) + delta));
+    el.value = next;
+  }
+  async function addToCart(goCheckout) {
+    if (!auth.requireAuth() || adding) return;
+    const qty = parseInt(document.getElementById('qty-value').value, 10);
+    if (!qty || qty < 1) { showToast('Enter a valid quantity.', 'error'); return; }
+    if (qty > currentProduct.stock) { showToast('That quantity is not available.', 'error'); return; }
+    adding = true;
+    const btn = document.getElementById('add-to-cart-btn');
+    btn.disabled = true; btn.textContent = 'Adding…';
+    try {
+      await cartManager.addItem(currentProduct.id, qty);
+      showToast(`Added ${currentProduct.name} to your bag.`, 'success');
+      if (goCheckout) location.href = '/checkout';
+    } catch (err) {
+      showToast(err.message || 'Could not add to cart.', 'error');
+    }
+    adding = false;
+    btn.disabled = currentProduct.stock <= 0;
+    btn.textContent = 'Add to cart';
+  }
+  function renderReviews(reviews) {
+    const list = document.getElementById('reviews-list');
+    if (!reviews.length) {
+      list.innerHTML = `<p style="color:var(--smoke)">No customer reviews yet.</p>`;
+      return;
+    }
+    list.innerHTML = reviews.map(r => `
+      <div style="padding:20px 0;border-bottom:1px solid var(--champagne-dark)">
+        <strong>${escapeHtml(r.user_name || 'Customer')}</strong>
+        <div class="stars">${renderStars(r.rating)}</div>
+        ${r.comment ? `<p>${escapeHtml(r.comment)}</p>` : ''}
+        <span style="font-size:0.78rem;color:var(--smoke)">${new Date(r.created_at).toLocaleDateString('en-IN')}</span>
+      </div>`).join('');
+  }
+  function setRating(val) {
+    selectedRating = val;
+    document.getElementById('review-rating').value = val;
+    document.querySelectorAll('.star-input').forEach((s, i) => {
+      s.textContent = i < val ? '★' : '☆';
+      s.style.color = i < val ? 'var(--gold)' : 'var(--mist)';
+    });
+  }
+
+  window.switchImage = switchImage;
+  window.switchTab = switchTab;
+  window.changeQty = changeQty;
+
+  document.getElementById('add-to-cart-btn').onclick = () => addToCart(false);
+  document.getElementById('buy-now-btn').onclick = () => addToCart(true);
+  document.getElementById('gallery-main').addEventListener('click', () => {
+    document.getElementById('gallery-main').classList.toggle('is-zoom');
+  });
+  document.querySelectorAll('.star-input').forEach(btn => btn.addEventListener('click', () => setRating(Number(btn.dataset.val))));
+  document.getElementById('review-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (selectedRating === 0) { showToast('Please select a rating.', 'error'); return; }
+    try {
+      await api.addReview(currentProduct.id, { rating: selectedRating, comment: document.getElementById('review-comment').value.trim() });
+      showToast('Review submitted.', 'success');
+      loadProduct();
+    } catch (err) {
+      showToast(err.message || 'Could not submit review.', 'error');
+    }
+  });
+  document.addEventListener('DOMContentLoaded', loadProduct);
+</script>
+</body>
+</html>

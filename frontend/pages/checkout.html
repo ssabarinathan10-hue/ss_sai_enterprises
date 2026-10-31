@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout — SS Sai Enterprises</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/pages.css">
+</head>
+<body>
+<div id="chrome-header"></div>
+<div class="page-content">
+  <div class="page-banner">
+    <div class="container">
+      <div class="breadcrumbs" style="justify-content:center;margin-bottom:12px;">
+        <a href="/">Home</a><span class="sep">›</span>
+        <a href="/cart">Bag</a><span class="sep">›</span>
+        <span class="current">Checkout</span>
+      </div>
+      <h1>Checkout</h1>
+      <p>Orders are confirmed after the server accepts them. You can then message us on WhatsApp.</p>
+    </div>
+  </div>
+  <div class="container">
+    <div class="checkout-layout">
+      <form id="checkout-form" novalidate>
+        <div class="checkout-section">
+          <h2 class="checkout-section-title"><span class="checkout-step-num">1</span> Delivery details</h2>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="shipping-name">Full name *</label>
+              <input type="text" class="form-input" id="shipping-name" required autocomplete="name">
+              <div class="form-error">Name is required.</div>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="shipping-phone">Phone *</label>
+              <input type="tel" class="form-input" id="shipping-phone" required autocomplete="tel">
+              <div class="form-error">Enter a valid 10-digit phone number.</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="shipping-address">Address *</label>
+            <textarea class="form-input" id="shipping-address" rows="2" required></textarea>
+            <div class="form-error">Address is required.</div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="shipping-city">City *</label>
+              <input type="text" class="form-input" id="shipping-city" required>
+              <div class="form-error">City is required.</div>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="shipping-state">State *</label>
+              <select class="form-input" id="shipping-state" required>
+                <option value="">Select state</option>
+                <option>Tamil Nadu</option><option>Maharashtra</option><option>Delhi</option>
+                <option>Karnataka</option><option>Telangana</option><option>West Bengal</option>
+                <option>Rajasthan</option><option>Gujarat</option><option>Kerala</option>
+                <option>Uttar Pradesh</option><option>Andhra Pradesh</option><option>Madhya Pradesh</option>
+                <option>Punjab</option><option>Haryana</option><option>Bihar</option><option>Other</option>
+              </select>
+              <div class="form-error">Select a state.</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="shipping-pincode">PIN code *</label>
+            <input type="text" class="form-input" id="shipping-pincode" maxlength="6" required>
+            <div class="form-error">Enter a 6-digit PIN code.</div>
+          </div>
+        </div>
+        <div class="checkout-section">
+          <h2 class="checkout-section-title"><span class="checkout-step-num">2</span> Payment method</h2>
+          <p style="font-size:0.88rem;color:var(--smoke);margin-bottom:12px">This is recorded with your order. Payment stays pending until it is collected as Cash on Delivery or confirmed separately.</p>
+          <div class="payment-options">
+            <label class="payment-option selected">
+              <input type="radio" name="payment" value="COD" checked>
+              <div>
+                <div class="payment-label">Cash on Delivery</div>
+                <div style="font-size:0.78rem;color:var(--smoke)">Pay when the order is delivered</div>
+              </div>
+            </label>
+            <label class="payment-option">
+              <input type="radio" name="payment" value="UPI">
+              <div>
+                <div class="payment-label">UPI (to be confirmed on WhatsApp)</div>
+                <div style="font-size:0.78rem;color:var(--smoke)">Not charged on this page</div>
+              </div>
+            </label>
+          </div>
+        </div>
+        <p id="order-error" class="filter-error" style="display:none;margin-bottom:12px"></p>
+        <button class="btn btn-primary btn-full btn-lg" id="place-order-btn" type="submit">Place order</button>
+      </form>
+      <div>
+        <div class="order-summary-card">
+          <h2 class="summary-title">Order summary</h2>
+          <div id="checkout-cart-items"><div class="spinner"></div></div>
+          <div class="summary-line"><span>Subtotal</span><span id="ch-subtotal">₹0</span></div>
+          <div class="summary-line"><span>Shipping</span><span id="ch-shipping">₹0</span></div>
+          <div class="summary-line"><span>GST (5%)</span><span id="ch-tax">₹0</span></div>
+          <div class="summary-line" id="ch-discount-row" style="display:none;color:var(--success)"><span>Discount</span><span id="ch-discount">-₹0</span></div>
+          <div class="summary-line total"><span>Estimated total</span><span id="ch-total">₹0</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-overlay" id="success-modal">
+  <div class="modal" style="text-align:center;">
+    <h2 style="color:var(--maroon);margin-bottom:12px;">Order placed</h2>
+    <p id="order-id-display" style="font-weight:700;color:var(--crimson);margin-bottom:12px;"></p>
+    <p style="font-size:0.9rem;color:var(--smoke);margin-bottom:20px;">The order is saved. Payment is not marked paid unless Cash on Delivery is collected later. Send the WhatsApp message to share this order with SS Sai Enterprises.</p>
+    <a id="whatsapp-btn" href="#" target="_blank" rel="noopener" class="btn btn-primary btn-full" style="background:#25D366;border:0;margin-bottom:12px;">Confirm on WhatsApp</a>
+    <a href="/orders" class="btn btn-outline btn-full">View orders</a>
+  </div>
+</div>
+<div id="chrome-footer"></div>
+<script src="/js/config.js"></script>
+<script src="/js/api.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/cart.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/store-chrome.js"></script>
+<script>
+  document.getElementById('chrome-header').innerHTML = storeHeader('');
+  document.getElementById('chrome-footer').innerHTML = storeFooter();
+
+  let cartItems = [];
+  let submitting = false;
+  const coupon = sessionStorage.getItem('coupon') || '';
+
+  document.querySelectorAll('.payment-option').forEach(opt => {
+    opt.addEventListener('click', () => {
+      document.querySelectorAll('.payment-option').forEach(o => o.classList.remove('selected'));
+      opt.classList.add('selected');
+      opt.querySelector('input').checked = true;
+    });
+  });
+
+  async function loadCheckoutCart() {
+    if (!auth.isLoggedIn()) { location.href = '/login'; return; }
+    try {
+      const data = await api.getCart();
+      cartItems = data.items || [];
+      if (!cartItems.length) { location.href = '/cart'; return; }
+      const subtotal = cartItems.reduce((s, i) => s + i.price * i.quantity, 0);
+      const shipping = subtotal >= 3000 ? 0 : 150;
+      const tax = Math.round(subtotal * 0.05);
+      const percents = { ROYAL10: 10, BRIDAL20: 20, FIRST15: 15 };
+      const discount = percents[(coupon || '').toUpperCase()] ? Math.round(subtotal * percents[coupon.toUpperCase()] / 100) : 0;
+      document.getElementById('checkout-cart-items').innerHTML = cartItems.map(i => `
+        <div style="display:flex;gap:12px;margin-bottom:14px;align-items:center;">
+          <img src="${escapeHtml(i.image_url || '')}" alt="" style="width:56px;height:70px;object-fit:cover" onerror="this.src='/images/saree_slide_1.jpg'">
+          <div style="flex:1;">
+            <div style="font-weight:600">${escapeHtml(i.name)}</div>
+            <div style="font-size:0.78rem;color:var(--smoke)">Qty ${i.quantity} · ${formatPrice(i.price)}</div>
+          </div>
+          <div>${formatPrice(i.price * i.quantity)}</div>
+        </div>`).join('');
+      document.getElementById('ch-subtotal').textContent = formatPrice(subtotal);
+      document.getElementById('ch-shipping').textContent = shipping === 0 ? 'Free' : formatPrice(shipping);
+      document.getElementById('ch-tax').textContent = formatPrice(tax);
+      document.getElementById('ch-total').textContent = formatPrice(subtotal + shipping + tax - discount);
+      if (discount) {
+        document.getElementById('ch-discount-row').style.display = 'flex';
+        document.getElementById('ch-discount').textContent = `-${formatPrice(discount)}`;
+      }
+      const user = auth.getUser();
+      if (user) document.getElementById('shipping-name').value = user.name || '';
+    } catch (err) {
+      showToast(err.message || 'Could not load checkout.', 'error');
+    }
+  }
+
+  function mark(id, ok) {
+    const el = document.getElementById(id);
+    el.classList.toggle('error', !ok);
+    return ok;
+  }
+
+  document.getElementById('checkout-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (submitting) return;
+    const name = document.getElementById('shipping-name').value.trim();
+    const phone = document.getElementById('shipping-phone').value.trim();
+    const address = document.getElementById('shipping-address').value.trim();
+    const city = document.getElementById('shipping-city').value.trim();
+    const state = document.getElementById('shipping-state').value;
+    const pincode = document.getElementById('shipping-pincode').value.trim();
+    const payment = document.querySelector('input[name="payment"]:checked')?.value || 'COD';
+    const errBox = document.getElementById('order-error');
+    errBox.style.display = 'none';
+
+    const valid =
+      mark('shipping-name', !!name) &
+      mark('shipping-phone', /^[0-9+\-\s]{10,15}$/.test(phone)) &
+      mark('shipping-address', !!address) &
+      mark('shipping-city', !!city) &
+      mark('shipping-state', !!state) &
+      mark('shipping-pincode', /^\d{6}$/.test(pincode));
+    if (!valid) { showToast('Please correct the highlighted fields.', 'error'); return; }
+
+    submitting = true;
+    const btn = document.getElementById('place-order-btn');
+    btn.disabled = true;
+    btn.textContent = 'Placing order…';
+    try {
+      const data = await api.createOrder({
+        shipping_name: name, shipping_phone: phone, shipping_address: address,
+        shipping_city: city, shipping_state: state, shipping_pincode: pincode,
+        payment_method: payment, coupon_code: coupon || undefined
+      });
+      sessionStorage.removeItem('coupon');
+      const items = data.items || [];
+      const sd = data.shipping_details || {};
+      const itemLines = items.map(it => `  • ${it.name} × ${it.quantity}  —  ₹${Number(it.price * it.quantity).toLocaleString('en-IN')}`).join('\n');
+      const msg =
+`🙏 New Order – SS Sai Enterprises
+Hello! I would like to place an order.
+
+📋 Order ID : #${data.order_id}
+
+🛍️ ORDER DETAILS:
+${itemLines}
+
+💰 PRICE SUMMARY:
+Subtotal        : ₹${Number(data.subtotal || 0).toLocaleString('en-IN')}
+Delivery Charge : ${data.shipping_amount > 0 ? '₹' + Number(data.shipping_amount).toLocaleString('en-IN') : 'FREE'}${data.discount_amount > 0 ? '\nDiscount        : -₹' + Number(data.discount_amount).toLocaleString('en-IN') : ''}
+GST (5%)        : ₹${Number(data.tax_amount || 0).toLocaleString('en-IN')}
+━━━━━━━━━━━━━━━━━
+Total Amount    : ₹${Number(data.total_amount || 0).toLocaleString('en-IN')}
+
+💳 Payment Method : ${data.payment_method || payment}
+
+📦 DELIVERY ADDRESS:
+Name    : ${sd.name || name}
+Phone   : ${sd.phone || phone}
+Address : ${[sd.address || address, sd.city || city, sd.state || state, sd.pincode || pincode].filter(Boolean).join(', ')}
+
+Please confirm my order. Thank you! 🙏
+
+— SS SAI Enterprises`;
+      document.getElementById('order-id-display').textContent = `Order #${data.order_id} · ${formatPrice(data.total_amount)}`;
+      document.getElementById('whatsapp-btn').href = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
+      document.getElementById('success-modal').classList.add('open');
+      await cartManager.updateBadge();
+    } catch (err) {
+      errBox.style.display = 'block';
+      errBox.textContent = err.message || 'Order could not be placed. Your bag is unchanged.';
+      showToast(err.message || 'Failed to place order.', 'error');
+      submitting = false;
+      btn.disabled = false;
+      btn.textContent = 'Place order';
+    }
+  });
+
+  document.addEventListener('DOMContentLoaded', loadCheckoutCart);
+</script>
+</body>
+</html>

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shop Sarees — SS Sai Enterprises</title>
+  <meta name="description" content="Browse silk, cotton, designer and bridal sarees from SS Sai Enterprises.">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/pages.css">
+</head>
+<body>
+<div id="chrome-header"></div>
+<div class="page-content">
+  <div class="page-banner">
+    <div class="container">
+      <div class="breadcrumbs" style="justify-content:center;margin-bottom:12px;">
+        <a href="/">Home</a><span class="sep">›</span><span class="current">Shop</span>
+      </div>
+      <h1 id="shop-title">Our Collection</h1>
+      <p>Filter by fabric, occasion, and price. Results come from the live catalogue.</p>
+    </div>
+  </div>
+  <div class="container">
+    <div class="shop-layout">
+      <aside class="filter-sidebar-wrapper" id="filter-sidebar-wrapper">
+        <form class="filter-sidebar" id="filter-form" onsubmit="applyFilters();return false">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
+            <h2 style="font-size:1rem;color:var(--maroon)">Filters</h2>
+            <button type="button" onclick="clearFilters()" style="font-size:0.8rem;color:var(--crimson);background:none">Clear</button>
+          </div>
+          <div class="filter-section">
+            <div class="filter-heading">Category</div>
+            <div class="filter-options" id="category-filters">
+              <label class="filter-option"><input type="radio" name="category" value="" checked> All categories</label>
+            </div>
+          </div>
+          <div class="filter-section">
+            <div class="filter-heading">Fabric</div>
+            <div class="filter-options">
+              <label class="filter-option"><input type="radio" name="fabric" value="" checked> All fabrics</label>
+              <label class="filter-option"><input type="radio" name="fabric" value="Kanjeevaram Silk"> Kanjeevaram Silk</label>
+              <label class="filter-option"><input type="radio" name="fabric" value="Banarasi Silk"> Banarasi Silk</label>
+              <label class="filter-option"><input type="radio" name="fabric" value="Chanderi Cotton"> Chanderi Cotton</label>
+              <label class="filter-option"><input type="radio" name="fabric" value="Organza"> Organza</label>
+              <label class="filter-option"><input type="radio" name="fabric" value="Georgette"> Georgette</label>
+              <label class="filter-option"><input type="radio" name="fabric" value="Tussar Silk"> Tussar Silk</label>
+              <label class="filter-option"><input type="radio" name="fabric" value="Linen"> Linen</label>
+              <label class="filter-option"><input type="radio" name="fabric" value="Mysore Silk"> Mysore Silk</label>
+              <label class="filter-option"><input type="radio" name="fabric" value="Ikat Silk"> Pochampally Ikat</label>
+              <label class="filter-option"><input type="radio" name="fabric" value="Bengal Cotton"> Bengal Tant</label>
+            </div>
+          </div>
+          <div class="filter-section">
+            <div class="filter-heading">Occasion</div>
+            <div class="filter-options">
+              <label class="filter-option"><input type="radio" name="occasion" value="" checked> All occasions</label>
+              <label class="filter-option"><input type="radio" name="occasion" value="Bridal"> Bridal</label>
+              <label class="filter-option"><input type="radio" name="occasion" value="Festive"> Festive</label>
+              <label class="filter-option"><input type="radio" name="occasion" value="Party"> Party</label>
+              <label class="filter-option"><input type="radio" name="occasion" value="Casual"> Casual</label>
+            </div>
+          </div>
+          <div class="filter-section">
+            <div class="filter-heading">Price</div>
+            <label class="form-label" for="min-price">Minimum (₹)</label>
+            <input class="form-input" type="number" id="min-price" min="0" step="100" placeholder="0">
+            <label class="form-label" for="max-price" style="margin-top:10px">Maximum (₹)</label>
+            <input class="form-input" type="number" id="max-price" min="0" step="100" placeholder="35000">
+          </div>
+          <div class="filter-section">
+            <div class="filter-heading">Sort</div>
+            <select class="form-input" id="sort-select" aria-label="Sort sarees">
+              <option value="">Featured</option>
+              <option value="newest">Newest</option>
+              <option value="price_asc">Price: low to high</option>
+              <option value="price_desc">Price: high to low</option>
+              <option value="rating">Top rated</option>
+            </select>
+          </div>
+          <button class="btn btn-primary btn-full" type="submit">Apply filters</button>
+        </form>
+      </aside>
+      <main>
+        <div class="shop-header">
+          <div class="search-bar">
+            <label class="sr-only" for="search-input">Search sarees</label>
+            <input type="search" id="search-input" class="search-input" placeholder="Search sarees, fabrics, colours…">
+          </div>
+          <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
+            <button class="btn btn-outline btn-sm mobile-filter-toggle" type="button" onclick="toggleFilterSidebar()">Filters</button>
+            <span class="shop-count" id="product-count">Loading…</span>
+          </div>
+        </div>
+        <div class="products-grid" id="products-grid">
+          <div style="grid-column:1/-1;text-align:center;padding:60px">
+            <div class="spinner"></div>
+            <p style="margin-top:16px;color:var(--smoke)">Loading the collection…</p>
+          </div>
+        </div>
+        <div class="pagination" id="pagination"></div>
+      </main>
+    </div>
+  </div>
+</div>
+<div id="chrome-footer"></div>
+<script src="/js/config.js"></script>
+<script src="/js/api.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/cart.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/store-chrome.js"></script>
+<script>
+  let currentPage = 1;
+  let searchTimer = null;
+  const PAGE_SIZE = 12;
+
+  document.getElementById('chrome-header').innerHTML = storeHeader('shop');
+  document.getElementById('chrome-footer').innerHTML = storeFooter();
+
+  function setRadio(name, value) {
+    const el = document.querySelector(`input[name="${name}"][value="${CSS.escape(value)}"]`);
+    if (el) el.checked = true;
+  }
+
+  async function loadCategories() {
+    try {
+      const data = await api.getCategories();
+      const wrap = document.getElementById('category-filters');
+      const current = new URLSearchParams(location.search).get('category') || '';
+      const extras = (data.categories || []).map(c =>
+        `<label class="filter-option"><input type="radio" name="category" value="${escapeHtml(c.slug)}" ${c.slug === current ? 'checked' : ''}> ${escapeHtml(c.name)}</label>`
+      ).join('');
+      wrap.innerHTML = `<label class="filter-option"><input type="radio" name="category" value="" ${current ? '' : 'checked'}> All categories</label>` + extras;
+    } catch { /* keep defaults */ }
+  }
+
+  function buildFilters() {
+    return {
+      category: document.querySelector('input[name="category"]:checked')?.value || '',
+      fabric: document.querySelector('input[name="fabric"]:checked')?.value || '',
+      occasion: document.querySelector('input[name="occasion"]:checked')?.value || '',
+      min_price: document.getElementById('min-price').value || '',
+      max_price: document.getElementById('max-price').value || '',
+      search: document.getElementById('search-input').value.trim(),
+      sort: document.getElementById('sort-select').value,
+      featured: new URLSearchParams(location.search).get('featured') || '',
+      page: currentPage,
+      limit: PAGE_SIZE
+    };
+  }
+
+  function renderPagination(total) {
+    const pages = Math.max(1, Math.ceil(total / PAGE_SIZE));
+    const el = document.getElementById('pagination');
+    if (pages <= 1) { el.innerHTML = ''; return; }
+    el.innerHTML = Array.from({ length: pages }, (_, i) => {
+      const n = i + 1;
+      return `<button type="button" class="${n === currentPage ? 'on' : ''}" onclick="goPage(${n})">${n}</button>`;
+    }).join('');
+  }
+
+  window.goPage = (n) => { currentPage = n; loadProducts(); window.scrollTo({ top: 0, behavior: 'smooth' }); };
+
+  async function loadProducts() {
+    const grid = document.getElementById('products-grid');
+    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:60px"><div class="spinner"></div></div>';
+    try {
+      const filters = buildFilters();
+      const data = await api.getProducts(filters);
+      const products = data.products || [];
+      const total = data.total != null ? data.total : products.length;
+      document.getElementById('product-count').textContent = total === 1 ? '1 saree' : `${total} sarees`;
+      if (!products.length) {
+        grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1">
+          <h3>No sarees match these filters</h3>
+          <p>Try a broader search or clear filters.</p>
+          <button class="btn btn-outline" type="button" onclick="clearFilters()">Clear filters</button>
+        </div>`;
+        document.getElementById('pagination').innerHTML = '';
+        return;
+      }
+      grid.innerHTML = products.map(p => buildProductCard(p)).join('');
+      renderPagination(total);
+    } catch (err) {
+      document.getElementById('product-count').textContent = '';
+      grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1">
+        <h3>Unable to load products</h3>
+        <p class="filter-error">${escapeHtml(err.message || 'Please try again.')}</p>
+        <button class="btn btn-outline" type="button" onclick="loadProducts()">Retry</button>
+      </div>`;
+    }
+  }
+
+  function applyFilters() { currentPage = 1; loadProducts(); }
+  function clearFilters() {
+    document.querySelectorAll('input[name="category"],input[name="fabric"],input[name="occasion"]').forEach(r => { r.checked = r.value === ''; });
+    document.getElementById('min-price').value = '';
+    document.getElementById('max-price').value = '';
+    document.getElementById('search-input').value = '';
+    document.getElementById('sort-select').value = '';
+    currentPage = 1;
+    history.replaceState({}, '', '/shop');
+    loadProducts();
+  }
+  function toggleFilterSidebar() {
+    document.getElementById('filter-sidebar-wrapper').classList.toggle('show');
+  }
+  window.applyFilters = applyFilters;
+  window.clearFilters = clearFilters;
+  window.toggleFilterSidebar = toggleFilterSidebar;
+
+  document.addEventListener('DOMContentLoaded', async () => {
+    const params = new URLSearchParams(location.search);
+    if (params.get('search')) document.getElementById('search-input').value = params.get('search');
+    if (params.get('fabric')) setRadio('fabric', params.get('fabric'));
+    if (params.get('occasion')) setRadio('occasion', params.get('occasion'));
+    if (params.get('sort')) document.getElementById('sort-select').value = params.get('sort');
+    if (params.get('min_price')) document.getElementById('min-price').value = params.get('min_price');
+    if (params.get('max_price')) document.getElementById('max-price').value = params.get('max_price');
+    await loadCategories();
+    if (params.get('category')) setRadio('category', params.get('category'));
+    const titleMap = { 'silk-sarees': 'Silk Sarees', 'cotton-sarees': 'Cotton Sarees', 'designer-sarees': 'Designer Sarees', 'bridal-sarees': 'Bridal Sarees' };
+    if (titleMap[params.get('category')]) document.getElementById('shop-title').textContent = titleMap[params.get('category')];
+    loadProducts();
+    document.getElementById('search-input').addEventListener('input', () => {
+      clearTimeout(searchTimer);
+      searchTimer = setTimeout(() => { currentPage = 1; loadProducts(); }, 400);
+    });
+    ['min-price', 'max-price', 'sort-select'].forEach(id => {
+      document.getElementById(id).addEventListener('change', applyFilters);
+    });
+  });
+</script>
+</body>
+</html>

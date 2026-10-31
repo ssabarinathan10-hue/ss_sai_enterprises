@@ -1,0 +1,101 @@
+# ─────────────────────────────────────────────────────────────
+# SS SAI ENTERPRISES — Netlify Deployment Configuration
+# ─────────────────────────────────────────────────────────────
+
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+# ── Security & Optimization Headers ──────────────────────────
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+
+[[headers]]
+  for = "/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/css/*"
+  [headers.values]
+    Cache-Control = "public, max-age=86400, stale-while-revalidate=604800"
+
+[[headers]]
+  for = "/js/*"
+  [headers.values]
+    Cache-Control = "public, max-age=86400, stale-while-revalidate=604800"
+
+# ── Storefront Clean URL Rewrites ───────────────────────────
+[[redirects]]
+  from = "/shop"
+  to = "/pages/shop.html"
+  status = 200
+
+[[redirects]]
+  from = "/product/:id"
+  to = "/pages/product.html"
+  status = 200
+
+[[redirects]]
+  from = "/product/*"
+  to = "/pages/product.html"
+  status = 200
+
+[[redirects]]
+  from = "/cart"
+  to = "/pages/cart.html"
+  status = 200
+
+[[redirects]]
+  from = "/checkout"
+  to = "/pages/checkout.html"
+  status = 200
+
+[[redirects]]
+  from = "/login"
+  to = "/pages/login.html"
+  status = 200
+
+[[redirects]]
+  from = "/register"
+  to = "/pages/register.html"
+  status = 200
+
+[[redirects]]
+  from = "/orders"
+  to = "/pages/orders.html"
+  status = 200
+
+[[redirects]]
+  from = "/welcome"
+  to = "/welcome.html"
+  status = 200
+
+# ── Admin Console Clean URL Rewrites ─────────────────────────
+[[redirects]]
+  from = "/admin"
+  to = "/admin/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/admin/"
+  to = "/admin/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/admin/dashboard"
+  to = "/admin/dashboard.html"
+  status = 200
+
+[[redirects]]
+  from = "/admin/*"
+  to = "/admin/:splat"
+  status = 200

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome — SS SAI Enterprises</title>
+  <meta name="description" content="Welcome to SS Sai Enterprises — Your curated saree collection awaits.">
+  <!-- Prevent indexing of this transitional page -->
+  <meta name="robots" content="noindex, nofollow">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Welcome styles -->
+  <link rel="stylesheet" href="css/welcome.css">
+
+  <!-- Guard: If not logged in, bounce to login immediately -->
+  <script>
+    (function () {
+      var token = localStorage.getItem('saree_token');
+      if (!token) {
+        window.location.replace('/pages/login.html');
+      }
+      // Prevent replaying intro if already seen this session
+      if (sessionStorage.getItem('ss_intro_shown') === '1') {
+        window.location.replace('/');
+      }
+      // Mark as shown
+      sessionStorage.setItem('ss_intro_shown', '1');
+    }());
+  </script>
+
+  <style>
+    /* Fallback background while fonts load */
+    body { margin: 0; background: #2A0913; }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════════════
+     WELCOME SCREEN
+     ══════════════════════════════════════════════════════════════ -->
+<div id="welcome-screen" role="main" aria-label="Welcome to SS Sai Enterprises">
+
+  <!-- Skip button (always visible) -->
+  <button id="ws-skip" type="button" aria-label="Skip intro and go to store">
+    Skip Intro ›
+  </button>
+
+  <!-- ── PART 1: Brand Intro ─────────────────────────────────── -->
+  <section id="ws-brand-intro" aria-label="Brand introduction">
+    <div class="ws-brand-ornament" aria-hidden="true"></div>
+
+    <h1 class="ws-brand-name">SS SAI Enterprises</h1>
+
+    <p class="ws-brand-tagline">Luxury Indian Sarees &amp; Ethnic Fashion</p>
+
+    <!-- Personalised greeting injected by JS -->
+    <p class="ws-welcome-greeting" id="ws-greeting-name" aria-live="polite"></p>
+
+    <div class="ws-brand-ornament" aria-hidden="true"></div>
+  </section>
+
+  <!-- ── PART 2: Saree Slideshow ─────────────────────────────── -->
+  <!-- Slide images injected by welcome.js -->
+  <div id="ws-slides" aria-hidden="true"></div>
+
+  <!-- Progress bar -->
+  <div id="ws-progress-bar" role="progressbar" aria-label="Intro progress" aria-valuemin="0" aria-valuemax="100"></div>
+
+  <!-- Caption overlay -->
+  <div id="ws-overlay" aria-live="polite">
+    <div id="ws-caption-wrap">
+      <span id="ws-slide-label" class="ws-slide-number"></span>
+      <p id="ws-caption"></p>
+      <div class="ws-gold-rule" aria-hidden="true"></div>
+    </div>
+    <div id="ws-dots" role="tablist" aria-label="Slide indicator"></div>
+  </div>
+
+  <!-- ── PART 3: Final CTA Screen ───────────────────────────── -->
+  <section id="ws-final" aria-label="Enter the store" aria-hidden="true">
+    <p class="ws-final-eyebrow">✦ Your Collection Awaits ✦</p>
+
+    <div class="ws-final-ornament" aria-hidden="true"></div>
+
+    <h2 class="ws-final-title">Your Beautiful<br>Collection Awaits</h2>
+
+    <p class="ws-final-subtitle">
+      Discover timeless sarees handpicked for every occasion —<br>
+      tradition woven with love, elegance crafted for you.
+    </p>
+
+    <a id="ws-explore-btn" href="/" role="button" aria-label="Explore the SS Sai Enterprises collection">
+      <span>Explore Collection</span>
+      <span class="ws-arrow" aria-hidden="true">→</span>
+    </a>
+  </section>
+
+</div><!-- /#welcome-screen -->
+
+<!-- Runtime Config & welcome.js -->
+<script src="/js/config.js"></script>
+<script src="/js/welcome.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,1256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Sign In — SS SAI Enterprises | Sarees & Indian Ethnic Fashion</title>
+  <meta name="description" content="Sign in to your SS Sai Enterprises account to access your curated saree collection, orders, and wishlist.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --wine: #641B2E;
+      --burg: #431321;
+      --dark-burg: #2A0913;
+      --ivory: #FFF9F1;
+      --ivory-warm: #FAF4EB;
+      --gold: #C6A15B;
+      --gold-light: #E8CF94;
+      --gold-pale: rgba(198, 161, 91, 0.18);
+      --beige: #EDE0D0;
+      --ink: #292321;
+      --card: #FFFFFF;
+      --mute: #6F625C;
+      --line: rgba(198, 161, 91, 0.35);
+      --line-subtle: rgba(100, 27, 46, 0.12);
+      --error-bg: #FDEDEE;
+      --error-text: #961E2D;
+      --success-bg: #EEF8F1;
+      --success-text: #1E6B37;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      min-height: 100%;
+      background-color: var(--ivory);
+      color: var(--ink);
+      font-family: 'Jost', system-ui, -apple-system, sans-serif;
+      font-size: 15px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .serif {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+    }
+
+    /* ─── FULL LAYOUT ───────────────────────────────────────── */
+    .login-container {
+      display: grid;
+      grid-template-columns: 1.05fr 1fr;
+      min-height: 100vh;
+      width: 100%;
+      overflow-x: hidden;
+      background: var(--ivory);
+    }
+
+    /* ─── LEFT SHOWCASE (FASHION EDITORIAL) ──────────────────── */
+    .showcase-side {
+      position: relative;
+      background-color: var(--dark-burg);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: clamp(32px, 5vw, 64px);
+      overflow: hidden;
+      color: #FFF9F1;
+    }
+
+    .showcase-bg {
+      position: absolute;
+      inset: 0;
+      background-image: 
+        radial-gradient(circle at 75% 20%, rgba(198, 161, 91, 0.22) 0%, transparent 45%),
+        linear-gradient(180deg, rgba(42, 9, 19, 0.35) 0%, rgba(42, 9, 19, 0.6) 50%, rgba(20, 4, 9, 0.92) 100%),
+        url('/images/vimala-tradition.jpg');
+      background-size: cover;
+      background-position: center 25%;
+      filter: saturate(1.08) contrast(1.04);
+      transform: scale(1.02);
+      transition: transform 12s cubic-bezier(0.25, 1, 0.5, 1);
+      z-index: 1;
+    }
+
+    .showcase-side:hover .showcase-bg {
+      transform: scale(1.06);
+    }
+
+    .showcase-texture {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      background: radial-gradient(circle at center, transparent 40%, rgba(42, 9, 19, 0.65) 100%);
+      pointer-events: none;
+    }
+
+    /* Elegant gold filigree border inner frame */
+    .showcase-frame {
+      position: absolute;
+      inset: clamp(16px, 2.5vw, 28px);
+      border: 1px solid rgba(198, 161, 91, 0.35);
+      pointer-events: none;
+      z-index: 3;
+    }
+
+    .showcase-frame::before {
+      content: '';
+      position: absolute;
+      top: -4px; left: -4px;
+      width: 12px; height: 12px;
+      border-top: 2px solid var(--gold);
+      border-left: 2px solid var(--gold);
+    }
+
+    .showcase-frame::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; right: -4px;
+      width: 12px; height: 12px;
+      border-bottom: 2px solid var(--gold);
+      border-right: 2px solid var(--gold);
+    }
+
+    .showcase-top {
+      position: relative;
+      z-index: 4;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .back-home {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      text-decoration: none;
+      padding: 8px 14px;
+      border: 1px solid rgba(198, 161, 91, 0.35);
+      background: rgba(42, 9, 19, 0.45);
+      backdrop-filter: blur(8px);
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+
+    .back-home:hover {
+      background: rgba(198, 161, 91, 0.2);
+      border-color: var(--gold);
+      color: #FFFFFF;
+      transform: translateX(-3px);
+    }
+
+    .showcase-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 10px;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      background: rgba(100, 27, 46, 0.65);
+      border: 1px solid rgba(198, 161, 91, 0.3);
+      padding: 6px 14px;
+      border-radius: 20px;
+      backdrop-filter: blur(6px);
+    }
+
+    .showcase-badge span {
+      display: inline-block;
+      width: 5px;
+      height: 5px;
+      background: var(--gold);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--gold);
+    }
+
+    .showcase-content {
+      position: relative;
+      z-index: 4;
+      max-width: 480px;
+      margin-top: auto;
+      padding-bottom: clamp(10px, 2vw, 24px);
+    }
+
+    .gold-ornament {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .gold-ornament-line {
+      width: 38px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold));
+    }
+
+    .gold-ornament-icon {
+      color: var(--gold);
+      font-size: 14px;
+      letter-spacing: 2px;
+    }
+
+    .showcase-eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .showcase-title {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: clamp(38px, 4.4vw, 56px);
+      line-height: 1.08;
+      font-weight: 500;
+      color: #FFF9F1;
+      margin-bottom: 18px;
+      text-shadow: 0 2px 14px rgba(0, 0, 0, 0.4);
+    }
+
+    .showcase-title em {
+      font-style: italic;
+      color: var(--gold-light);
+      font-weight: 400;
+    }
+
+    .showcase-desc {
+      font-size: clamp(14px, 1.1vw, 16px);
+      line-height: 1.65;
+      color: rgba(255, 249, 241, 0.85);
+      font-weight: 300;
+      max-width: 420px;
+      margin-bottom: 24px;
+    }
+
+    .showcase-footer {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(198, 161, 91, 0.25);
+    }
+
+    .showcase-stat b {
+      display: block;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 22px;
+      color: var(--gold-light);
+      font-weight: 600;
+      line-height: 1;
+    }
+
+    .showcase-stat small {
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(255, 249, 241, 0.7);
+    }
+
+    /* ─── RIGHT FORM SIDE ────────────────────────────────────── */
+    .form-side {
+      background: var(--ivory);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: clamp(36px, 6vw, 72px) clamp(24px, 5vw, 64px);
+      position: relative;
+    }
+
+    .form-wrapper {
+      width: 100%;
+      max-width: 420px;
+      margin: 0 auto;
+    }
+
+    /* Brand Header */
+    .brand-header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    .brand-logo {
+      display: inline-block;
+      text-decoration: none;
+      color: var(--wine);
+      margin-bottom: 20px;
+      transition: opacity 0.3s ease;
+    }
+
+    .brand-logo:hover {
+      opacity: 0.85;
+    }
+
+    .brand-logo b {
+      display: block;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 27px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      color: var(--wine);
+      line-height: 1;
+    }
+
+    .brand-logo small {
+      display: block;
+      font-size: 9px;
+      letter-spacing: 0.44em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-top: 4px;
+      font-weight: 500;
+    }
+
+    .page-title {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: clamp(30px, 3vw, 36px);
+      font-weight: 500;
+      color: var(--wine);
+      line-height: 1.15;
+      margin-bottom: 8px;
+    }
+
+    .page-subtitle {
+      font-size: 14px;
+      color: var(--mute);
+      font-weight: 400;
+    }
+
+    /* Form Fields */
+    .login-form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      text-align: left;
+    }
+
+    .form-label {
+      font-size: 11.5px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 500;
+      color: var(--ink);
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .input-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .input-icon {
+      position: absolute;
+      left: 14px;
+      width: 18px;
+      height: 18px;
+      color: var(--gold);
+      pointer-events: none;
+      opacity: 0.85;
+      transition: color 0.25s, opacity 0.25s;
+    }
+
+    .form-input {
+      width: 100%;
+      height: 48px;
+      padding: 0 44px 0 44px;
+      background: #FFFFFF;
+      border: 1px solid var(--line);
+      border-radius: 2px;
+      font-family: inherit;
+      font-size: 14px;
+      color: var(--ink);
+      transition: all 0.25s ease;
+      box-shadow: 0 1px 3px rgba(100, 27, 46, 0.03);
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: var(--wine);
+      box-shadow: 0 0 0 3px rgba(100, 27, 46, 0.08);
+      background: #FFFFFF;
+    }
+
+    .form-input:focus + .input-icon,
+    .input-wrap:focus-within .input-icon {
+      color: var(--wine);
+      opacity: 1;
+    }
+
+    .form-input::placeholder {
+      color: #9E8F87;
+      font-weight: 300;
+    }
+
+    .pwd-toggle {
+      position: absolute;
+      right: 12px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 6px;
+      color: var(--mute);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: color 0.2s;
+    }
+
+    .pwd-toggle:hover {
+      color: var(--wine);
+    }
+
+    .pwd-toggle svg {
+      width: 19px;
+      height: 19px;
+    }
+
+    /* Options: Remember & Forgot */
+    .form-options {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12.5px;
+      margin-top: -4px;
+    }
+
+    .remember-wrap {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      color: var(--mute);
+      user-select: none;
+    }
+
+    .remember-wrap input[type="checkbox"] {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 16px;
+      height: 16px;
+      border: 1px solid var(--gold);
+      border-radius: 2px;
+      outline: none;
+      cursor: pointer;
+      background: #FFFFFF;
+      position: relative;
+      transition: all 0.2s ease;
+    }
+
+    .remember-wrap input[type="checkbox"]:checked {
+      background: var(--wine);
+      border-color: var(--wine);
+    }
+
+    .remember-wrap input[type="checkbox"]:checked::after {
+      content: '';
+      position: absolute;
+      top: 2px; left: 5px;
+      width: 4px; height: 8px;
+      border: solid #FFFFFF;
+      border-width: 0 1.5px 1.5px 0;
+      transform: rotate(45deg);
+    }
+
+    .forgot-link {
+      color: var(--wine);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+      border-bottom: 1px solid transparent;
+    }
+
+    .forgot-link:hover {
+      color: var(--burg);
+      border-color: var(--gold);
+    }
+
+    /* Sign In Button */
+    .btn-submit {
+      width: 100%;
+      height: 50px;
+      background: var(--wine);
+      color: #FFF9F1;
+      border: 1px solid var(--wine);
+      border-radius: 2px;
+      font-family: 'Jost', sans-serif;
+      font-size: 12.5px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 8px;
+      box-shadow: 0 4px 14px rgba(100, 27, 46, 0.2);
+    }
+
+    .btn-submit:hover:not(:disabled) {
+      background: var(--burg);
+      border-color: var(--burg);
+      box-shadow: 0 8px 24px rgba(67, 19, 33, 0.35);
+      transform: translateY(-1px);
+    }
+
+    .btn-submit:active:not(:disabled) {
+      transform: translateY(0);
+    }
+
+    .btn-submit:disabled {
+      opacity: 0.75;
+      cursor: not-allowed;
+    }
+
+    /* Feedback Alerts */
+    .form-alert {
+      display: none;
+      padding: 12px 16px;
+      border-radius: 2px;
+      font-size: 13px;
+      line-height: 1.4;
+      animation: fadeIn 0.25s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .form-alert.error {
+      background: var(--error-bg);
+      border: 1px solid rgba(150, 30, 45, 0.25);
+      color: var(--error-text);
+    }
+
+    .form-alert.success {
+      background: var(--success-bg);
+      border: 1px solid rgba(30, 107, 55, 0.25);
+      color: var(--success-text);
+    }
+
+    /* Divider */
+    .divider {
+      display: flex;
+      align-items: center;
+      text-align: center;
+      margin: 24px 0 20px;
+      color: var(--mute);
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    .divider::before,
+    .divider::after {
+      content: '';
+      flex: 1;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .divider span {
+      padding: 0 14px;
+      color: var(--mute);
+    }
+
+    /* Quick Demo Login Pill Buttons */
+    .demo-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+
+    .btn-demo {
+      background: transparent;
+      border: 1px solid var(--line);
+      color: var(--wine);
+      padding: 10px 12px;
+      font-size: 11.5px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 500;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .btn-demo:hover {
+      background: var(--wine);
+      border-color: var(--wine);
+      color: #FFF9F1;
+    }
+
+    /* Footer Register Link */
+    .form-footer {
+      text-align: center;
+      font-size: 13.5px;
+      color: var(--mute);
+      margin-top: 12px;
+    }
+
+    .form-footer a {
+      color: var(--wine);
+      font-weight: 600;
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .form-footer a:hover {
+      color: var(--burg);
+      border-color: var(--gold);
+    }
+
+    /* Loading Spinner */
+    .spinner {
+      display: none;
+      width: 16px;
+      height: 16px;
+      border: 2px solid rgba(255, 255, 255, 0.35);
+      border-top-color: #FFFFFF;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .btn-submit.loading .spinner {
+      display: inline-block;
+    }
+
+    .btn-submit.loading .btn-text {
+      opacity: 0.85;
+    }
+
+    /* ─── TOAST NOTIFICATION ─────────────────────────────────── */
+    .toast-msg {
+      position: fixed;
+      left: 50%;
+      bottom: 30px;
+      transform: translate(-50%, 20px);
+      background: var(--burg);
+      color: #FFF9F1;
+      padding: 12px 24px;
+      border: 1px solid var(--gold);
+      font-size: 13px;
+      letter-spacing: 0.04em;
+      border-radius: 2px;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.35s ease;
+      z-index: 999;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.28);
+    }
+
+    .toast-msg.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translate(-50%, 0);
+    }
+
+    /* ─── RESPONSIVE BREAKPOINTS ─────────────────────────────── */
+    @media (max-width: 992px) {
+      .login-container {
+        grid-template-columns: 1fr;
+        min-height: 100vh;
+      }
+
+      .showcase-side {
+        min-height: 380px;
+        padding: 32px 24px;
+        justify-content: space-between;
+      }
+
+      .showcase-bg {
+        background-position: center 20%;
+      }
+
+      .showcase-content {
+        max-width: 100%;
+      }
+
+      .showcase-title {
+        font-size: 34px;
+      }
+
+      .showcase-desc {
+        font-size: 14px;
+        margin-bottom: 16px;
+      }
+
+      .showcase-footer {
+        display: none;
+      }
+
+      .form-side {
+        padding: 40px 20px 48px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .showcase-side {
+        min-height: 290px;
+        padding: 24px 18px;
+      }
+
+      .showcase-title {
+        font-size: 28px;
+      }
+
+      .showcase-desc {
+        display: none;
+      }
+
+      .showcase-eyebrow {
+        font-size: 10px;
+        letter-spacing: 0.22em;
+      }
+
+      .form-side {
+        padding: 32px 18px 40px;
+      }
+
+      .page-title {
+        font-size: 28px;
+      }
+
+      .demo-actions {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="login-container">
+  <!-- ── LEFT: FASHION SHOWCASE ─────────────────────────────── -->
+  <aside class="showcase-side">
+    <div class="showcase-bg" aria-hidden="true"></div>
+    <div class="showcase-texture" aria-hidden="true"></div>
+    <div class="showcase-frame" aria-hidden="true"></div>
+
+    <div class="showcase-top">
+      <a href="/" class="back-home" title="Return to store homepage">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="19" y1="12" x2="5" y2="12"></line>
+          <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+        Back to boutique
+      </a>
+      <div class="showcase-badge">
+        <span></span> Heritage Weaves
+      </div>
+    </div>
+
+    <div class="showcase-content">
+      <div class="gold-ornament" aria-hidden="true">
+        <div class="gold-ornament-line"></div>
+        <div class="gold-ornament-icon">✦ ❖ ✦</div>
+      </div>
+      <span class="showcase-eyebrow">Artisan Indian Couture</span>
+      <h1 class="showcase-title">Elegance Begins <em>Here</em></h1>
+      <p class="showcase-desc">Discover timeless sarees and celebrate every beautiful moment with SS Sai Enterprises.</p>
+
+      <div class="showcase-footer">
+        <div class="showcase-stat">
+          <b>100%</b>
+          <small>Pure Silk & Zari</small>
+        </div>
+        <div class="showcase-stat">
+          <b>5,000+</b>
+          <small>Happy Patrons</small>
+        </div>
+        <div class="showcase-stat">
+          <b>Tirupur</b>
+          <small>Handpicked Origin</small>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ── RIGHT: LOGIN FORM ──────────────────────────────────── -->
+  <main class="form-side">
+    <div class="form-wrapper">
+      <header class="brand-header">
+        <a href="/" class="brand-logo" aria-label="SS SAI Enterprises Home">
+          <b>SS SAI</b>
+          <small>Enterprises</small>
+        </a>
+        <h2 class="page-title">Welcome Back</h2>
+        <p class="page-subtitle">Sign in to discover your favourite sarees.</p>
+      </header>
+
+      <!-- Alert Box -->
+      <div id="form-alert" class="form-alert" role="alert" aria-live="polite"></div>
+
+      <!-- Main Login Form -->
+      <form id="login-form" class="login-form" onsubmit="handleLoginSubmit(event)" novalidate>
+        <!-- Email Field -->
+        <div class="form-group">
+          <label class="form-label" for="email">Email Address</label>
+          <div class="input-wrap">
+            <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+              <polyline points="22,6 12,13 2,6"></polyline>
+            </svg>
+            <input 
+              type="email" 
+              id="email" 
+              name="email" 
+              class="form-input" 
+              placeholder="e.g. priya@example.com" 
+              required 
+              autocomplete="email"
+              aria-required="true"
+            >
+          </div>
+        </div>
+
+        <!-- Password Field -->
+        <div class="form-group">
+          <label class="form-label" for="password">Password</label>
+          <div class="input-wrap">
+            <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+            <input 
+              type="password" 
+              id="password" 
+              name="password" 
+              class="form-input" 
+              placeholder="••••••••••••" 
+              required 
+              autocomplete="current-password"
+              aria-required="true"
+            >
+            <button 
+              type="button" 
+              id="pwd-toggle-btn" 
+              class="pwd-toggle" 
+              onclick="togglePasswordVisibility()" 
+              aria-label="Show password"
+              title="Show / hide password"
+            >
+              <svg id="eye-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                <circle cx="12" cy="12" r="3"></circle>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Remember Me & Forgot Password -->
+        <div class="form-options">
+          <label class="remember-wrap">
+            <input type="checkbox" id="remember-me" name="remember">
+            <span>Remember me</span>
+          </label>
+          <a href="#" onclick="handleForgotPassword(event)" class="forgot-link">Forgot password?</a>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" id="submit-btn" class="btn-submit">
+          <span class="spinner" aria-hidden="true"></span>
+          <span class="btn-text">Sign In</span>
+          <svg class="btn-arrow" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </button>
+      </form>
+
+      <!-- Divider -->
+      <div class="divider" aria-hidden="true">
+        <span>Or Continue With</span>
+      </div>
+
+      <!-- Quick Demo Access / Testing -->
+      <div class="demo-actions">
+        <button type="button" onclick="fillDemoCustomer()" class="btn-demo" title="Try demo customer account">
+          <span>❖ Demo Customer</span>
+        </button>
+        <button type="button" onclick="fillDemoAdmin()" class="btn-demo" title="Try admin credentials">
+          <span>✦ Demo Admin</span>
+        </button>
+      </div>
+
+      <!-- Create Account Footer -->
+      <footer class="form-footer">
+        New to SS Sai Enterprises? <a href="/pages/register.html">Create an account</a>
+      </footer>
+    </div>
+  </main>
+</div>
+
+<!-- Floating Toast -->
+<div id="toast" class="toast-msg" role="status" aria-live="polite"></div>
+
+<!-- Backend API Scripts -->
+<script src="/js/config.js"></script>
+<script src="/js/api.js"></script>
+<script src="/js/auth.js"></script>
+<script>
+  // Redirect if already logged in (only if user explicitly has token and is not deliberately on login page)
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get('logout') === 'true' && window.auth) {
+    auth.clearSession();
+  }
+
+
+  // Toast Helper
+  function showToastMessage(msg) {
+    const toast = document.getElementById('toast');
+    if (!toast) return;
+    toast.textContent = msg;
+    toast.classList.add('show');
+    clearTimeout(toast._t);
+    toast._t = setTimeout(() => {
+      toast.classList.remove('show');
+    }, 2800);
+  }
+
+  // Password Visibility Toggle
+  function togglePasswordVisibility() {
+    const pwdInput = document.getElementById('password');
+    const eyeIcon = document.getElementById('eye-icon');
+    const toggleBtn = document.getElementById('pwd-toggle-btn');
+    if (!pwdInput) return;
+
+    if (pwdInput.type === 'password') {
+      pwdInput.type = 'text';
+      toggleBtn.setAttribute('aria-label', 'Hide password');
+      eyeIcon.innerHTML = `
+        <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
+        <line x1="1" y1="1" x2="23" y2="23"></line>
+      `;
+    } else {
+      pwdInput.type = 'password';
+      toggleBtn.setAttribute('aria-label', 'Show password');
+      eyeIcon.innerHTML = `
+        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+        <circle cx="12" cy="12" r="3"></circle>
+      `;
+    }
+  }
+
+  // Form Alert Notification Helper
+  function setAlert(msg, type = 'error') {
+    const alertBox = document.getElementById('form-alert');
+    if (!alertBox) return;
+    if (!msg) {
+      alertBox.style.display = 'none';
+      alertBox.textContent = '';
+      alertBox.className = 'form-alert';
+      return;
+    }
+    alertBox.textContent = msg;
+    alertBox.className = `form-alert ${type}`;
+    alertBox.style.display = 'block';
+  }
+
+  // Forgot Password Action
+  function handleForgotPassword(e) {
+    e.preventDefault();
+    const emailVal = document.getElementById('email').value.trim();
+    if (emailVal) {
+      showToastMessage(`Password reset link sent to ${emailVal}`);
+      setAlert(`If an account matches ${emailVal}, password recovery instructions have been sent.`, 'success');
+    } else {
+      setAlert('Please enter your email address above to receive a password recovery link.', 'error');
+      document.getElementById('email').focus();
+    }
+  }
+
+  // Demo Fill Helpers
+  function fillDemoCustomer() {
+    document.getElementById('email').value = 'priya@example.com';
+    document.getElementById('password').value = 'password123';
+    setAlert('Demo credentials loaded. Click "Sign In" to proceed.', 'success');
+  }
+
+  function fillDemoAdmin() {
+    document.getElementById('email').value = 'vimala@sssai.in';
+    document.getElementById('password').value = 'demo1234';
+    setAlert('Admin credentials loaded. Click "Sign In" to access admin console.', 'success');
+  }
+
+  // Main Login Handler
+  async function handleLoginSubmit(e) {
+    e.preventDefault();
+    setAlert('');
+
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value;
+    const btn = document.getElementById('submit-btn');
+
+    // Basic Validation
+    if (!email) {
+      setAlert('Please enter your email address.');
+      document.getElementById('email').focus();
+      return;
+    }
+    if (!/^\S+@\S+\.\S+$/.test(email)) {
+      setAlert('Please enter a valid email address.');
+      document.getElementById('email').focus();
+      return;
+    }
+    if (!password) {
+      setAlert('Please enter your password.');
+      document.getElementById('password').focus();
+      return;
+    }
+
+    // Set Loading UI
+    btn.classList.add('loading');
+    btn.disabled = true;
+
+    try {
+      // 1. Try Customer Login API
+      let data;
+      let isAdminLogin = false;
+
+      // Special check: if user entered admin email, route directly to admin login
+      if (email === 'vimala@sssai.in' || email === 'admin@vasanthisilks.com') {
+        const res = await fetch(`${window.API_BASE || '/api'}/auth/admin-login`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password })
+        });
+        data = await res.json();
+        if (!res.ok) throw new Error(data.message || 'Invalid admin credentials');
+        isAdminLogin = true;
+      } else {
+        // Standard Customer Login
+        try {
+          data = await window.api.login({ email, password });
+        } catch (apiErr) {
+          // If customer account doesn't exist yet for demo 'priya@example.com', auto-register it
+          if (email === 'priya@example.com') {
+            try {
+              await window.api.register({
+                name: 'Priya Venkataraman',
+                email: 'priya@example.com',
+                password: 'password123',
+                phone: '9786358839'
+              });
+              data = await window.api.login({ email, password });
+            } catch (regErr) {
+              throw apiErr;
+            }
+          } else {
+            throw apiErr;
+          }
+        }
+      }
+
+      // Successful Authentication
+      if (data && data.token) {
+        if (isAdminLogin) {
+          localStorage.setItem('adminToken', data.token);
+          setAlert('Admin verification successful! Redirecting to dashboard...', 'success');
+          showToastMessage('Welcome, Vimala! Opening admin console...');
+          setTimeout(() => {
+            window.location.href = '/#/admin';
+          }, 900);
+        } else {
+          window.auth.setSession(data.token, data.user);
+          setAlert(`Welcome back, ${data.user.name}! Redirecting to store...`, 'success');
+          showToastMessage(`Signed in as ${data.user.name} 🥻`);
+          setTimeout(() => {
+            // If a specific redirect target was requested (e.g. from checkout), honour it.
+            // Otherwise show the cinematic welcome intro before the homepage.
+            const redirectParam = new URLSearchParams(window.location.search).get('redirect');
+            window.location.href = redirectParam || '/welcome.html';
+          }, 900);
+        }
+      } else {
+        throw new Error(data.message || 'Login failed. Please verify your credentials.');
+      }
+    } catch (err) {
+      setAlert(err.message || 'Unable to sign in. Please check your credentials.', 'error');
+    } finally {
+      btn.classList.remove('loading');
+      btn.disabled = false;
+    }
+  }
+
+  // ─── SHOWCASE SLIDER (MOVING 1 BY 1) ──────────────────────
+  const SHOWCASE_SLIDES_DATA = [
+    {
+      badge: 'Heritage Weaves',
+      eyebrow: 'Artisan Indian Couture',
+      title: 'Elegance Begins <em>Here</em>',
+      desc: 'Discover timeless sarees and celebrate every beautiful moment with SS Sai Enterprises.'
+    },
+    {
+      badge: 'Pure Silk & Grace',
+      eyebrow: 'Handcrafted Perfection',
+      title: 'Timeless Beauty in <em>Every Drape</em>',
+      desc: 'Woven with the finest threads and rich festive pallus, designed for your most memorable occasions.'
+    }
+  ];
+
+  let currentShowcaseIndex = 0;
+  let showcaseInterval = null;
+  let isSliding = false;
+
+  function moveShowcaseSlide(targetIdx, direction = 'next') {
+    if (isSliding || targetIdx === currentShowcaseIndex) return;
+    const slides = document.querySelectorAll('.showcase-slide');
+    const dots = document.querySelectorAll('.slide-dot');
+    if (!slides.length) return;
+
+    isSliding = true;
+    const currentSlide = slides[currentShowcaseIndex];
+    const targetSlide = slides[targetIdx];
+
+    // Position target slide before animation starts
+    if (direction === 'next') {
+      targetSlide.style.transition = 'none';
+      targetSlide.style.transform = 'translateX(100%)';
+      targetSlide.style.opacity = '0';
+      void targetSlide.offsetWidth; // Force layout
+      targetSlide.style.transition = '';
+
+      currentSlide.classList.remove('active');
+      currentSlide.classList.add('slide-out-left');
+    } else {
+      targetSlide.style.transition = 'none';
+      targetSlide.style.transform = 'translateX(-100%)';
+      targetSlide.style.opacity = '0';
+      void targetSlide.offsetWidth; // Force layout
+      targetSlide.style.transition = '';
+
+      currentSlide.classList.remove('active');
+      currentSlide.classList.add('slide-out-right');
+    }
+
+    targetSlide.classList.remove('slide-out-left', 'slide-out-right');
+    targetSlide.classList.add('active');
+    targetSlide.style.transform = '';
+    targetSlide.style.opacity = '';
+
+    // Update dots
+    dots.forEach((dot, idx) => {
+      dot.classList.toggle('active', idx === targetIdx);
+    });
+
+    // Update slide counter
+    const counterEl = document.getElementById('slide-num-current');
+    if (counterEl) counterEl.textContent = String(targetIdx + 1).padStart(2, '0');
+
+    // Update editorial text smoothly
+    const data = SHOWCASE_SLIDES_DATA[targetIdx];
+    if (data) {
+      const badgeEl = document.getElementById('showcase-badge');
+      const eyebrowEl = document.getElementById('showcase-eyebrow');
+      const titleEl = document.getElementById('showcase-title');
+      const descEl = document.getElementById('showcase-desc');
+
+      if (badgeEl) badgeEl.innerHTML = `<span></span> ${data.badge}`;
+      if (eyebrowEl) eyebrowEl.textContent = data.eyebrow;
+      if (titleEl) titleEl.innerHTML = data.title;
+      if (descEl) descEl.textContent = data.desc;
+    }
+
+    currentShowcaseIndex = targetIdx;
+
+    setTimeout(() => {
+      slides.forEach((s, idx) => {
+        if (idx !== currentShowcaseIndex) {
+          s.classList.remove('active', 'slide-out-left', 'slide-out-right');
+          s.style.transform = '';
+          s.style.opacity = '';
+        }
+      });
+      isSliding = false;
+    }, 1150);
+  }
+
+  function nextShowcaseSlide() {
+    const nextIdx = (currentShowcaseIndex + 1) % 2;
+    moveShowcaseSlide(nextIdx, 'next');
+    resetShowcaseTimer();
+  }
+
+  function prevShowcaseSlide() {
+    const prevIdx = (currentShowcaseIndex - 1 + 2) % 2;
+    moveShowcaseSlide(prevIdx, 'prev');
+    resetShowcaseTimer();
+  }
+
+  function jumpToShowcaseSlide(idx) {
+    if (idx === currentShowcaseIndex) return;
+    moveShowcaseSlide(idx, idx > currentShowcaseIndex ? 'next' : 'prev');
+    resetShowcaseTimer();
+  }
+
+  function resetShowcaseTimer() {
+    clearInterval(showcaseInterval);
+    showcaseInterval = setInterval(nextShowcaseSlide, 4500);
+  }
+
+  // Initialize auto-sliding
+  resetShowcaseTimer();
+
+  // Pause on hover
+  const sideEl = document.getElementById('showcase-side');
+  if (sideEl) {
+    sideEl.addEventListener('mouseenter', () => clearInterval(showcaseInterval));
+    sideEl.addEventListener('mouseleave', () => resetShowcaseTimer());
+
+    // Touch swipe support
+    let touchStartX = 0;
+    sideEl.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].clientX;
+    }, { passive: true });
+    sideEl.addEventListener('touchend', (e) => {
+      const diff = e.changedTouches[0].clientX - touchStartX;
+      if (diff > 40) prevShowcaseSlide();
+      else if (diff < -40) nextShowcaseSlide();
+    }, { passive: true });
+  }
+</script>
+
+</body>
+</html>
+
