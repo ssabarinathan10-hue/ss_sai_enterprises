@@ -19,11 +19,14 @@
             align-items: center;
             font-family: Arial, sans-serif;
             background: linear-gradient(135deg, #fff1f5, #f8e8ff);
+            padding: 16px;
+            overflow-x: hidden;
         }
 
         .login-box {
-            width: 380px;
-            padding: 40px;
+            width: 100%;
+            max-width: 380px;
+            padding: clamp(24px, 6vw, 40px);
             background: white;
             border-radius: 18px;
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
@@ -39,12 +42,14 @@
             text-align: center;
             margin-bottom: 8px;
             color: #333;
+            font-size: clamp(20px, 5vw, 28px);
         }
 
         .subtitle {
             text-align: center;
             color: #777;
             margin-bottom: 30px;
+            font-size: clamp(13px, 3vw, 15px);
         }
 
         label {
@@ -61,6 +66,7 @@
             border: 1px solid #ddd;
             border-radius: 8px;
             font-size: 15px;
+            min-height: 48px;
         }
 
         input:focus {
@@ -78,6 +84,7 @@
             font-size: 16px;
             font-weight: bold;
             cursor: pointer;
+            min-height: 48px;
         }
 
         button:hover {

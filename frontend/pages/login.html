@@ -756,6 +756,28 @@
         grid-template-columns: 1fr;
       }
     }
+
+    @media (max-width: 360px) {
+      .showcase-side {
+        min-height: 200px;
+        padding: 16px 14px;
+      }
+      .showcase-title { font-size: 22px; }
+      .form-side { padding: 20px 14px 32px; }
+      .form-wrapper { max-width: 100%; }
+      .brand-logo-text-main { font-size: 20px; }
+      html, body { font-size: 14px; }
+    }
+
+    /* Safe area insets for iPhone notch */
+    @supports (padding-bottom: env(safe-area-inset-bottom)) {
+      .form-side {
+        padding-bottom: calc(40px + env(safe-area-inset-bottom));
+      }
+    }
+
+    /* Prevent horizontal scroll */
+    html, body { overflow-x: hidden; max-width: 100vw; }
   </style>
 </head>
 <body>

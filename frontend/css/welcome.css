@@ -419,4 +419,25 @@
   #ws-overlay { padding: 24px 20px; }
   #ws-skip    { top: 16px; right: 16px; padding: 7px 14px; }
   .ws-brand-ornament { width: 140px; }
+  #ws-explore-btn { padding: 14px 32px; font-size: 0.72rem; letter-spacing: 0.2em; }
+  .ws-final-title { font-size: clamp(1.6rem, 8vw, 2.8rem); }
+  .ws-final-subtitle { font-size: 0.85rem; margin-bottom: 32px; }
+}
+
+@media (max-width: 360px) {
+  #ws-overlay { padding: 16px 14px; }
+  #ws-explore-btn { padding: 12px 24px; font-size: 0.68rem; width: 100%; justify-content: center; }
+  .ws-final-title { font-size: 1.5rem; }
+  .ws-brand-name { font-size: clamp(1.4rem, 7vw, 2.2rem); letter-spacing: 0.12em; }
+  #ws-skip { top: 12px; right: 12px; padding: 6px 12px; font-size: 0.65rem; }
+}
+
+/* Safe area for iPhone notch and home bar */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  #ws-final {
+    padding-bottom: calc(32px + env(safe-area-inset-bottom));
+  }
+  #ws-overlay {
+    padding-bottom: calc(32px + env(safe-area-inset-bottom));
+  }
 }

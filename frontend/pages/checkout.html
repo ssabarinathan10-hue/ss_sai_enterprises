@@ -1,12 +1,13 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Checkout — SS Sai Enterprises</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Checkout â€” SS Sai Enterprises</title>
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/components.css">
   <link rel="stylesheet" href="/css/pages.css">
+  <link rel="stylesheet" href="/css/responsive.css">
 </head>
 <body>
 <div id="chrome-header"></div>
@@ -14,8 +15,8 @@
   <div class="page-banner">
     <div class="container">
       <div class="breadcrumbs" style="justify-content:center;margin-bottom:12px;">
-        <a href="/">Home</a><span class="sep">›</span>
-        <a href="/cart">Bag</a><span class="sep">›</span>
+        <a href="/">Home</a><span class="sep">â€º</span>
+        <a href="/cart">Bag</a><span class="sep">â€º</span>
         <span class="current">Checkout</span>
       </div>
       <h1>Checkout</h1>
@@ -96,11 +97,11 @@
         <div class="order-summary-card">
           <h2 class="summary-title">Order summary</h2>
           <div id="checkout-cart-items"><div class="spinner"></div></div>
-          <div class="summary-line"><span>Subtotal</span><span id="ch-subtotal">₹0</span></div>
-          <div class="summary-line"><span>Shipping</span><span id="ch-shipping">₹0</span></div>
-          <div class="summary-line"><span>GST (5%)</span><span id="ch-tax">₹0</span></div>
-          <div class="summary-line" id="ch-discount-row" style="display:none;color:var(--success)"><span>Discount</span><span id="ch-discount">-₹0</span></div>
-          <div class="summary-line total"><span>Estimated total</span><span id="ch-total">₹0</span></div>
+          <div class="summary-line"><span>Subtotal</span><span id="ch-subtotal">â‚¹0</span></div>
+          <div class="summary-line"><span>Shipping</span><span id="ch-shipping">â‚¹0</span></div>
+          <div class="summary-line"><span>GST (5%)</span><span id="ch-tax">â‚¹0</span></div>
+          <div class="summary-line" id="ch-discount-row" style="display:none;color:var(--success)"><span>Discount</span><span id="ch-discount">-â‚¹0</span></div>
+          <div class="summary-line total"><span>Estimated total</span><span id="ch-total">â‚¹0</span></div>
         </div>
       </div>
     </div>
@@ -154,7 +155,7 @@
           <img src="${escapeHtml(i.image_url || '')}" alt="" style="width:56px;height:70px;object-fit:cover" onerror="this.src='/images/saree_slide_1.jpg'">
           <div style="flex:1;">
             <div style="font-weight:600">${escapeHtml(i.name)}</div>
-            <div style="font-size:0.78rem;color:var(--smoke)">Qty ${i.quantity} · ${formatPrice(i.price)}</div>
+            <div style="font-size:0.78rem;color:var(--smoke)">Qty ${i.quantity} Â· ${formatPrice(i.price)}</div>
           </div>
           <div>${formatPrice(i.price * i.quantity)}</div>
         </div>`).join('');
@@ -204,7 +205,7 @@
     submitting = true;
     const btn = document.getElementById('place-order-btn');
     btn.disabled = true;
-    btn.textContent = 'Placing order…';
+    btn.textContent = 'Placing orderâ€¦';
     try {
       const data = await api.createOrder({
         shipping_name: name, shipping_phone: phone, shipping_address: address,
@@ -214,34 +215,34 @@
       sessionStorage.removeItem('coupon');
       const items = data.items || [];
       const sd = data.shipping_details || {};
-      const itemLines = items.map(it => `  • ${it.name} × ${it.quantity}  —  ₹${Number(it.price * it.quantity).toLocaleString('en-IN')}`).join('\n');
+      const itemLines = items.map(it => `  â€¢ ${it.name} Ã— ${it.quantity}  â€”  â‚¹${Number(it.price * it.quantity).toLocaleString('en-IN')}`).join('\n');
       const msg =
-`🙏 New Order – SS Sai Enterprises
+`ðŸ™ New Order â€“ SS Sai Enterprises
 Hello! I would like to place an order.
 
-📋 Order ID : #${data.order_id}
+ðŸ“‹ Order ID : #${data.order_id}
 
-🛍️ ORDER DETAILS:
+ðŸ›ï¸ ORDER DETAILS:
 ${itemLines}
 
-💰 PRICE SUMMARY:
-Subtotal        : ₹${Number(data.subtotal || 0).toLocaleString('en-IN')}
-Delivery Charge : ${data.shipping_amount > 0 ? '₹' + Number(data.shipping_amount).toLocaleString('en-IN') : 'FREE'}${data.discount_amount > 0 ? '\nDiscount        : -₹' + Number(data.discount_amount).toLocaleString('en-IN') : ''}
-GST (5%)        : ₹${Number(data.tax_amount || 0).toLocaleString('en-IN')}
-━━━━━━━━━━━━━━━━━
-Total Amount    : ₹${Number(data.total_amount || 0).toLocaleString('en-IN')}
+ðŸ’° PRICE SUMMARY:
+Subtotal        : â‚¹${Number(data.subtotal || 0).toLocaleString('en-IN')}
+Delivery Charge : ${data.shipping_amount > 0 ? 'â‚¹' + Number(data.shipping_amount).toLocaleString('en-IN') : 'FREE'}${data.discount_amount > 0 ? '\nDiscount        : -â‚¹' + Number(data.discount_amount).toLocaleString('en-IN') : ''}
+GST (5%)        : â‚¹${Number(data.tax_amount || 0).toLocaleString('en-IN')}
+â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”â”
+Total Amount    : â‚¹${Number(data.total_amount || 0).toLocaleString('en-IN')}
 
-💳 Payment Method : ${data.payment_method || payment}
+ðŸ’³ Payment Method : ${data.payment_method || payment}
 
-📦 DELIVERY ADDRESS:
+ðŸ“¦ DELIVERY ADDRESS:
 Name    : ${sd.name || name}
 Phone   : ${sd.phone || phone}
 Address : ${[sd.address || address, sd.city || city, sd.state || state, sd.pincode || pincode].filter(Boolean).join(', ')}
 
-Please confirm my order. Thank you! 🙏
+Please confirm my order. Thank you! ðŸ™
 
-— SS SAI Enterprises`;
-      document.getElementById('order-id-display').textContent = `Order #${data.order_id} · ${formatPrice(data.total_amount)}`;
+â€” SS SAI Enterprises`;
+      document.getElementById('order-id-display').textContent = `Order #${data.order_id} Â· ${formatPrice(data.total_amount)}`;
       document.getElementById('whatsapp-btn').href = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
       document.getElementById('success-modal').classList.add('open');
       await cartManager.updateBadge();
@@ -259,3 +260,6 @@ Please confirm my order. Thank you! 🙏
 </script>
 </body>
 </html>
+
+
+

@@ -1,13 +1,14 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Shop Sarees — SS Sai Enterprises</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Shop Sarees â€” SS Sai Enterprises</title>
   <meta name="description" content="Browse silk, cotton, designer and bridal sarees from SS Sai Enterprises.">
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/components.css">
   <link rel="stylesheet" href="/css/pages.css">
+  <link rel="stylesheet" href="/css/responsive.css">
 </head>
 <body>
 <div id="chrome-header"></div>
@@ -15,7 +16,7 @@
   <div class="page-banner">
     <div class="container">
       <div class="breadcrumbs" style="justify-content:center;margin-bottom:12px;">
-        <a href="/">Home</a><span class="sep">›</span><span class="current">Shop</span>
+        <a href="/">Home</a><span class="sep">â€º</span><span class="current">Shop</span>
       </div>
       <h1 id="shop-title">Our Collection</h1>
       <p>Filter by fabric, occasion, and price. Results come from the live catalogue.</p>
@@ -63,9 +64,9 @@
           </div>
           <div class="filter-section">
             <div class="filter-heading">Price</div>
-            <label class="form-label" for="min-price">Minimum (₹)</label>
+            <label class="form-label" for="min-price">Minimum (â‚¹)</label>
             <input class="form-input" type="number" id="min-price" min="0" step="100" placeholder="0">
-            <label class="form-label" for="max-price" style="margin-top:10px">Maximum (₹)</label>
+            <label class="form-label" for="max-price" style="margin-top:10px">Maximum (â‚¹)</label>
             <input class="form-input" type="number" id="max-price" min="0" step="100" placeholder="35000">
           </div>
           <div class="filter-section">
@@ -85,17 +86,17 @@
         <div class="shop-header">
           <div class="search-bar">
             <label class="sr-only" for="search-input">Search sarees</label>
-            <input type="search" id="search-input" class="search-input" placeholder="Search sarees, fabrics, colours…">
+            <input type="search" id="search-input" class="search-input" placeholder="Search sarees, fabrics, coloursâ€¦">
           </div>
           <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
             <button class="btn btn-outline btn-sm mobile-filter-toggle" type="button" onclick="toggleFilterSidebar()">Filters</button>
-            <span class="shop-count" id="product-count">Loading…</span>
+            <span class="shop-count" id="product-count">Loadingâ€¦</span>
           </div>
         </div>
         <div class="products-grid" id="products-grid">
           <div style="grid-column:1/-1;text-align:center;padding:60px">
             <div class="spinner"></div>
-            <p style="margin-top:16px;color:var(--smoke)">Loading the collection…</p>
+            <p style="margin-top:16px;color:var(--smoke)">Loading the collectionâ€¦</p>
           </div>
         </div>
         <div class="pagination" id="pagination"></div>
@@ -234,3 +235,6 @@
 </script>
 </body>
 </html>
+
+
+
