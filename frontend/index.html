@@ -1,14 +1,14 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>SS Sai Enterprises â€” Sarees &amp; Indian Ethnic Fashion</title>
+<title>SS Sai Enterprises — Sarees &amp; Indian Ethnic Fashion</title>
 <meta name="description" content="Discover timeless sarees and Indian ethnic fashion at SS Sai Enterprises. Premium silk, cotton, designer and bridal sarees curated by Vimala.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 <script src="/js/config.js"></script>
 <style>
-/* â”€â”€ TOKENS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── TOKENS ─────────────────────────────────────────────────── */
 :root{
   --wine:#641B2E;--burg:#431321;--dark-burg:#2A0913;
   --ivory:#FFF9F1;--beige:#EDE0D0;--gold:#C6A15B;--gold-l:#E8CF94;
@@ -25,10 +25,19 @@ a{color:inherit;text-decoration:none}button{font:inherit;cursor:pointer;border:0
 .w{max-width:1280px;margin:0 auto;padding:0 clamp(16px,4vw,48px)}
 .eyebrow{font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;display:block}
 
-/* â”€â”€ ANNOUNCEMENT â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-.ann{background:var(--burg);color:#f3dfb6;text-align:center;font-size:11px;letter-spacing:.2em;text-transform:uppercase;padding:8px 10px}
+/* ── ANNOUNCEMENT ─────────────────────────────────────────── */
+.ann{
+  background:var(--burg);color:#f3dfb6;text-align:center;font-size:11px;
+  letter-spacing:.14em;text-transform:uppercase;padding:9px 16px;
+  display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;
+  border-bottom:1px solid rgba(198,161,91,.2);
+}
+.ann-item{display:inline-flex;align-items:center;gap:6px}
+.ann-sep{opacity:.4;font-size:11px}
+.ann a{color:#f3dfb6;text-decoration:none;transition:color .2s}
+.ann a:hover{color:#fff}
 
-/* â”€â”€ NAVBAR â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── NAVBAR ───────────────────────────────────────────────── */
 header{position:sticky;top:0;z-index:20;background:rgba(255,249,241,.92);border-bottom:1px solid var(--line);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);transition:background .4s,box-shadow .4s}
 header.scrolled{box-shadow:0 4px 30px rgba(67,19,33,.12)}
 @media(prefers-color-scheme:dark){header{background:rgba(29,13,18,.92)}}
@@ -39,24 +48,25 @@ header.scrolled{box-shadow:0 4px 30px rgba(67,19,33,.12)}
 .links{display:flex;gap:26px;font-size:12px;letter-spacing:.12em;text-transform:uppercase}
 .links a{padding:6px 0;border-bottom:1px solid transparent;transition:.3s;position:relative}
 .links a:hover{border-color:var(--gold);color:var(--wine)}
-.ic{display:flex;gap:4px}
-.ic button,.burger{background:none;border:0;color:inherit;width:40px;height:40px;position:relative;font-size:18px;display:flex;align-items:center;justify-content:center}
-.ic sup{position:absolute;top:4px;right:2px;background:var(--wine);color:#fff;border-radius:9px;font-size:10px;padding:0 5px;line-height:15px}
-.burger{display:none;font-size:22px}
+.ic{display:flex;align-items:center;gap:4px}
+.ic button,.burger{background:none;border:0;color:inherit;width:40px;height:40px;position:relative;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .2s,color .2s}
+.ic button:hover,.burger:hover{color:var(--wine);transform:scale(1.08)}
+.ic sup{position:absolute;top:3px;right:2px;background:var(--wine);color:#fff;border-radius:10px;font-size:10px;font-weight:600;min-width:16px;height:16px;padding:0 4px;line-height:16px;text-align:center;box-shadow:0 2px 6px rgba(0,0,0,.25);pointer-events:none}
+.burger{display:none}
 @media(max-width:960px){.links{display:none}.burger{display:flex}.links.open{display:flex;position:absolute;top:72px;left:0;right:0;flex-direction:column;background:var(--ivory);padding:16px 24px;border-bottom:1px solid var(--line);gap:6px;z-index:30}}
 .search{display:none;padding:10px 0 14px}.search.on{display:block}
 .search input,.f input,.f select,.f textarea,.sort{width:100%;padding:12px 14px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit;border-radius:2px}
 
-/* â”€â”€ BUTTONS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── BUTTONS ─────────────────────────────────────────────────── */
 .btn{display:inline-block;padding:15px 30px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;border:1px solid var(--wine);background:var(--wine);color:#fff9f1;transition:.35s;text-align:center;cursor:pointer}
 .btn:hover{background:var(--burg);box-shadow:0 8px 28px rgba(67,19,33,.35);transform:translateY(-2px)}
 .btn.o{background:transparent;color:var(--wine);border-color:var(--gold)}.btn.o:hover{background:var(--wine);color:#fff;transform:translateY(-2px)}
 .btn.gold{background:var(--gold);color:var(--dark-burg);border-color:var(--gold)}.btn.gold:hover{background:var(--gold-l)}
 @media(prefers-color-scheme:dark){.btn.o{color:#e8cf94}}
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ═══════════════════════════════════════════════════════════════
    CINEMATIC HERO
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+   ═══════════════════════════════════════════════════════════════ */
 .cinematic-hero{
   position:relative;height:100svh;min-height:560px;max-height:960px;
   overflow:hidden;display:flex;align-items:center;
@@ -140,9 +150,9 @@ header.scrolled{box-shadow:0 4px 30px rgba(67,19,33,.12)}
   to{opacity:1;transform:translateY(0)}
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ═══════════════════════════════════════════════════════════════
    MARQUEE STRIP
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+   ═══════════════════════════════════════════════════════════════ */
 .marquee-wrap{
   overflow:hidden;background:var(--burg);padding:14px 0;border-top:1px solid var(--line2);border-bottom:1px solid var(--line2);
 }
@@ -158,9 +168,9 @@ header.scrolled{box-shadow:0 4px 30px rgba(67,19,33,.12)}
 .marquee-track span.sep{color:rgba(198,161,91,.4);padding:0;font-size:16px}
 @keyframes marqueeScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ═══════════════════════════════════════════════════════════════
    OLD HERO (used for product / admin pages)
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+   ═══════════════════════════════════════════════════════════════ */
 .hero{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,5vw,72px);align-items:center;padding:clamp(32px,6vw,72px) 0}
 .hero h1{font-size:clamp(44px,6.4vw,84px);color:var(--wine);margin-bottom:20px}.hero h1 i{color:var(--gold)}
 @media(prefers-color-scheme:dark){.hero h1{color:#f1dcc0}}
@@ -174,18 +184,18 @@ header.scrolled{box-shadow:0 4px 30px rgba(67,19,33,.12)}
 .seal{position:absolute;left:44%;bottom:0;transform:translateX(-50%);background:var(--ivory);border:1px solid var(--gold);padding:10px 20px;font:italic 500 17px 'Cormorant Garamond',serif;color:var(--wine);z-index:2}
 @media(max-width:820px){.hero{grid-template-columns:1fr}.stage{order:-1}}
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ═══════════════════════════════════════════════════════════════
    SECTIONS
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+   ═══════════════════════════════════════════════════════════════ */
 section.s{padding:clamp(44px,7vw,92px) 0}
 .hd{text-align:center;margin-bottom:48px}
 .hd h2{font-size:clamp(32px,4.4vw,52px);color:var(--wine)}
 @media(prefers-color-scheme:dark){.hd h2{color:#f1dcc0}}
 .hd .gold-rule{width:60px;height:2px;background:linear-gradient(to right,var(--gold),var(--gold-l));margin:16px auto 0;border-radius:2px}
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ═══════════════════════════════════════════════════════════════
    3D SHOWROOM SECTION
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+   ═══════════════════════════════════════════════════════════════ */
 .showroom{
   position:relative;overflow:hidden;
   padding:clamp(60px,8vw,120px) 0;
@@ -254,9 +264,9 @@ section.s{padding:clamp(44px,7vw,92px) 0}
 @keyframes srFloat{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-20px) scale(1.05)}}
 .sr-cta{text-align:center;margin-top:56px}
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ═══════════════════════════════════════════════════════════════
    COLLECTIONS GRID
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+   ═══════════════════════════════════════════════════════════════ */
 .cols{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
 .col{
   position:relative;aspect-ratio:3/4;overflow:hidden;
@@ -296,9 +306,9 @@ section.s{padding:clamp(44px,7vw,92px) 0}
 @media(max-width:1000px){.cols{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:480px){.col span{font-size:21px;left:12px;bottom:12px}}
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ═══════════════════════════════════════════════════════════════
    PRODUCT CARDS
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+   ═══════════════════════════════════════════════════════════════ */
 .bar{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:28px;align-items:center}
 .chips{display:flex;gap:8px;flex-wrap:wrap}
 .chip{
@@ -335,24 +345,26 @@ section.s{padding:clamp(44px,7vw,92px) 0}
   padding:5px 10px;border-radius:0;
 }
 .wl{
-  position:absolute;top:8px;right:8px;z-index:2;
-  width:36px;height:36px;border-radius:50%;border:0;
-  background:rgba(255,249,241,.92);color:var(--wine);font-size:17px;
-  transition:.25s;
+  position:absolute;top:10px;right:10px;z-index:4;
+  width:36px;height:36px;border-radius:50%;border:1px solid rgba(198,161,91,.25);
+  background:rgba(255,249,241,.94);color:var(--wine);
+  display:inline-flex;align-items:center;justify-content:center;
+  box-shadow:0 3px 10px rgba(0,0,0,.12);
+  transition:.25s cubic-bezier(.2,.8,.2,1);cursor:pointer;
 }
-.wl:hover{background:var(--wine);color:#fff;transform:scale(1.15)}
+.wl svg{width:16px;height:16px;stroke:currentColor;fill:transparent;transition:.25s}
+.wl:hover{background:var(--wine);color:#fff;transform:scale(1.1);box-shadow:0 6px 16px rgba(100,27,46,.3)}
 .wl.on{background:var(--wine);color:#fff}
-.qa{
-  position:absolute;z-index:2;left:0;right:0;bottom:0;border:0;
-  background:rgba(67,19,33,.92);color:#fff;padding:12px;
-  font:500 11px 'Jost',sans-serif;letter-spacing:.18em;text-transform:uppercase;
-  transform:translateY(100%);transition:.35s;cursor:pointer;
-}
-.pc:hover .qa{transform:none}
-@media(hover:none){.qa{transform:none}}
+.wl.on svg{fill:#e8cf94;stroke:#e8cf94}
 
-/* Quick-add button animation */
-.qa.adding{background:var(--gold);color:var(--dark-burg)}
+.pc{position:relative;background:var(--card);transition:.35s}
+.pc-actions{display:flex;gap:8px;margin-top:12px}
+.pc-actions .btn{
+  padding:9px 10px;font-size:11px;letter-spacing:.12em;
+  display:inline-flex;align-items:center;justify-content:center;gap:6px;
+  flex:1;white-space:nowrap;
+}
+.pc-actions .btn svg{width:13px;height:13px;flex-shrink:0}
 
 .pc h3{font-size:21px;margin:12px 0 2px}
 .pc .m{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
@@ -360,9 +372,9 @@ section.s{padding:clamp(44px,7vw,92px) 0}
 .pr s{color:var(--mute);font-weight:400;margin:0 6px}
 .pr em{font-style:normal;color:#9a3a52;font-size:12px}
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ═══════════════════════════════════════════════════════════════
    STORY SECTION
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+   ═══════════════════════════════════════════════════════════════ */
 .story{
   display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,6vw,90px);
   align-items:center;padding:clamp(28px,5vw,64px);
@@ -378,9 +390,9 @@ section.s{padding:clamp(44px,7vw,92px) 0}
 @media(max-width:820px){.story{grid-template-columns:1fr}}
 @media(prefers-color-scheme:dark){.story{background:var(--beige)}}
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ═══════════════════════════════════════════════════════════════
    TRUST SECTION
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+   ═══════════════════════════════════════════════════════════════ */
 .trust-wrap{background:var(--ivory);padding:clamp(40px,6vw,80px) 0}
 .trust{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;text-align:center}
 .trust-item{padding:28px 16px;border:1px solid var(--line2);transition:.3s;position:relative;overflow:hidden}
@@ -395,16 +407,16 @@ section.s{padding:clamp(44px,7vw,92px) 0}
 .trust h3{font-size:21px}.trust p{margin:6px 0 0;font-size:13.5px;color:var(--mute)}
 @media(max-width:800px){.trust{grid-template-columns:1fr 1fr}}
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ═══════════════════════════════════════════════════════════════
    REVIEWS
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+   ═══════════════════════════════════════════════════════════════ */
 .rev{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
 .rev blockquote{
   margin:0;padding:32px;border:1px solid var(--line2);background:var(--card);
   transition:.35s;position:relative;overflow:hidden;
 }
 .rev blockquote::before{
-  content:'â';font-family:'Cormorant Garamond',serif;font-size:60px;
+  content:'\201C';font-family:'Cormorant Garamond',serif;font-size:60px;
   color:var(--gold);opacity:.12;position:absolute;top:-8px;left:12px;line-height:1;
 }
 .rev blockquote:hover{border-color:var(--gold);transform:translateY(-4px);box-shadow:0 16px 40px rgba(67,19,33,.1)}
@@ -413,9 +425,9 @@ section.s{padding:clamp(44px,7vw,92px) 0}
 .rev .stars{color:var(--gold);font-size:13px;letter-spacing:.06em;margin-bottom:6px}
 @media(max-width:800px){.rev{grid-template-columns:1fr}}
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ═══════════════════════════════════════════════════════════════
    INSTAGRAM GALLERY
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+   ═══════════════════════════════════════════════════════════════ */
 .gal{display:grid;grid-template-columns:repeat(6,1fr);gap:6px}
 .gal div{
   aspect-ratio:1;background-size:cover;background-position:center;
@@ -430,9 +442,9 @@ section.s{padding:clamp(44px,7vw,92px) 0}
 .gal div:hover{transform:scale(.97)}
 @media(max-width:700px){.gal{grid-template-columns:repeat(3,1fr)}}
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ═══════════════════════════════════════════════════════════════
    FOOTER
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+   ═══════════════════════════════════════════════════════════════ */
 footer{background:var(--burg);color:#e9d9c3;padding:70px 0 24px;margin-top:0}
 .fg{display:grid;grid-template-columns:1.6fr 1fr 1fr 1.2fr;gap:36px}
 footer h4{font:600 12px 'Jost',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin:0 0 14px}
@@ -441,10 +453,18 @@ footer .logo{text-align:left}footer .logo b{color:#f1dcc0;font-size:26px}footer 
 .fb{border-top:1px solid rgba(198,161,91,.3);margin-top:40px;padding-top:18px;font-size:12px;opacity:.7;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
 @media(max-width:800px){.fg{grid-template-columns:1fr 1fr}}
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ═══════════════════════════════════════════════════════════════
    UTILITIES
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
-.wa{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:30;background:#25a05a;color:#fff;padding:12px 18px;border-radius:30px;font-size:13px;box-shadow:0 8px 24px rgba(0,0,0,.25)}
+   ═══════════════════════════════════════════════════════════════ */
+.wa{
+  position:fixed;right:18px;bottom:calc(18px + env(safe-area-inset-bottom,0px));
+  z-index:30;background:#25a05a;color:#fff;padding:10px 18px;border-radius:30px;
+  font-size:13px;font-weight:500;box-shadow:0 8px 24px rgba(0,0,0,.25);
+  display:inline-flex;align-items:center;gap:8px;text-decoration:none;
+  transition:transform .25s,box-shadow .25s;
+}
+.wa:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(37,160,90,.4);color:#fff}
+.wa svg{width:18px;height:18px;flex-shrink:0}
 .dr{position:fixed;top:0;right:0;bottom:0;width:min(420px,100%);background:var(--ivory);z-index:50;transform:translateX(100%);transition:.45s;display:flex;flex-direction:column;box-shadow:-20px 0 60px rgba(0,0,0,.3)}.dr.on{transform:none}
 .dr header{position:static;padding:18px 22px;display:flex;justify-content:space-between;align-items:center;border:0;background:none}.dr h3{font-size:28px}
 .ci{display:grid;grid-template-columns:70px 1fr auto;gap:14px;padding:14px 22px;border-bottom:1px solid var(--line);align-items:center}
@@ -456,9 +476,9 @@ footer .logo{text-align:left}footer .logo b{color:#f1dcc0;font-size:26px}footer 
 .scr{position:fixed;inset:0;background:rgba(20,5,10,.55);z-index:40;opacity:0;pointer-events:none;transition:.4s}.scr.on{opacity:1;pointer-events:auto}
 .toast{position:fixed;left:50%;bottom:90px;transform:translate(-50%,20px);background:var(--burg);color:#fff;padding:12px 22px;opacity:0;transition:.4s;z-index:60;border:1px solid var(--gold);font-size:13px;white-space:nowrap}.toast.on{opacity:1;transform:translate(-50%,0)}
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ═══════════════════════════════════════════════════════════════
    PRODUCT DETAIL PAGE
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+   ═══════════════════════════════════════════════════════════════ */
 .pd{display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(24px,5vw,72px);padding:36px 0 60px}
 .main{aspect-ratio:3/4;background-size:cover;background-position:center;border:1px solid var(--line)}
 .th{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:10px}
@@ -471,9 +491,9 @@ details{border-top:1px solid var(--line);padding:14px 0}summary{cursor:pointer;f
 @media(max-width:820px){.pd{grid-template-columns:1fr}}
 .crumb{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--mute);padding-top:24px}.crumb a:hover{color:var(--gold)}
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ═══════════════════════════════════════════════════════════════
    ADMIN
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+   ═══════════════════════════════════════════════════════════════ */
 .ad{display:grid;grid-template-columns:230px 1fr;min-height:100vh;background:#f6f1ea;color:#292321;font-size:14px}
 .ad aside{background:var(--burg);color:#e9d9c3;padding:24px 14px}.ad aside .logo{margin-bottom:28px;text-align:left;padding:0 10px}.ad aside .logo b{color:#f1dcc0;font-size:19px}
 .ad aside button{display:block;width:100%;text-align:left;background:none;border:0;color:inherit;padding:11px 12px;margin:2px 0;border-radius:3px}.ad aside button.on,.ad aside button:hover{background:rgba(198,161,91,.18);color:#fff}
@@ -486,26 +506,26 @@ details{border-top:1px solid var(--line);padding:14px 0}summary{cursor:pointer;f
 .lg{max-width:380px;margin:12vh auto;background:#fff;border:1px solid #e6dccd;padding:36px;color:#292321}.lg .logo{margin-bottom:22px}
 @media(max-width:820px){.ad{grid-template-columns:1fr}.ad aside{display:flex;gap:4px;overflow-x:auto;padding:10px}.ad aside .logo{display:none}.ad aside button{white-space:nowrap;width:auto}.st{grid-template-columns:1fr 1fr}.f{grid-template-columns:1fr}}
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ═══════════════════════════════════════════════════════════════
    SCROLL REVEAL
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+   ═══════════════════════════════════════════════════════════════ */
 .rv{opacity:0;transform:perspective(900px) translateY(46px) rotateX(10deg);transition:opacity .9s,transform 1s cubic-bezier(.2,.7,.2,1)}.rv.in{opacity:1;transform:none}
 .rv-up{opacity:0;transform:translateY(40px);transition:opacity .8s,transform .9s cubic-bezier(.2,.7,.2,1)}.rv-up.in{opacity:1;transform:none}
 .rv-left{opacity:0;transform:translateX(-40px);transition:opacity .8s,transform .9s cubic-bezier(.2,.7,.2,1)}.rv-left.in{opacity:1;transform:none}
 .rv-right{opacity:0;transform:translateX(40px);transition:opacity .8s,transform .9s cubic-bezier(.2,.7,.2,1)}.rv-right.in{opacity:1;transform:none}
 .rv-scale{opacity:0;transform:scale(.94);transition:opacity .8s,transform .9s cubic-bezier(.2,.7,.2,1)}.rv-scale.in{opacity:1;transform:none}
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ═══════════════════════════════════════════════════════════════
    3D LIGHT EFFECT
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+   ═══════════════════════════════════════════════════════════════ */
 .pim,.col,.main,.story .im{transform-style:preserve-3d;will-change:transform;position:relative}
 .col{position:relative}
 .pim:after,.main:after,.col:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at var(--gx,50%) var(--gy,50%),rgba(255,240,200,.34),transparent 55%);opacity:0;transition:.3s;pointer-events:none;z-index:3}
 .pim:hover:after,.main:hover:after,.col:hover:before{opacity:1}
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ═══════════════════════════════════════════════════════════════
    REDUCED MOTION
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+   ═══════════════════════════════════════════════════════════════ */
 @media(prefers-reduced-motion:reduce){
   .rv,.rv-up,.rv-left,.rv-right,.rv-scale{opacity:1;transform:none}
   *{animation:none!important;transition:none!important}
@@ -521,35 +541,39 @@ details{border-top:1px solid var(--line);padding:14px 0}summary{cursor:pointer;f
 <script>
 const WA='919786358839';
 const $=s=>document.querySelector(s);
-const inr=n=>'â‚¹'+Number(n).toLocaleString('en-IN');
+const inr=n=>'₹'+Number(n).toLocaleString('en-IN');
 
-/* â”€â”€ Art-directed procedural textile SVG â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-function fab(base,acc,k,view){
-  const W=600,H=800;
-  let s=`<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 ${W} ${H}'><defs><linearGradient id='f' x1='0' x2='1'><stop offset='0' stop-color='#000' stop-opacity='.35'/><stop offset='.25' stop-color='#fff' stop-opacity='.12'/><stop offset='.5' stop-color='#000' stop-opacity='.22'/><stop offset='.75' stop-color='#fff' stop-opacity='.16'/><stop offset='1' stop-color='#000' stop-opacity='.38'/></linearGradient><linearGradient id='z' x1='0' x2='0' y1='0' y2='1'><stop offset='0' stop-color='#8c6a22'/><stop offset='.5' stop-color='#f1dc9a'/><stop offset='1' stop-color='#8c6a22'/></linearGradient><radialGradient id='v'><stop offset='.5' stop-color='#000' stop-opacity='0'/><stop offset='1' stop-color='#000' stop-opacity='.45'/></radialGradient></defs><rect width='600' height='800' fill='${base}'/>`;
-  const z=view==1?3:1;s+=`<g transform='scale(${z})' ${view==1?"transform-origin='300 700'":''}>`;
-  for(let r=0;r<16;r++)for(let c=0;c<8;c++){const x=c*84+(r%2?42:0),y=40+r*46;s+=k==0?`<path d='M${x} ${y-13}q13 13 0 26q-13-13 0-26' fill='${acc}' opacity='.55'/>`:k==1?`<circle cx='${x}' cy='${y}' r='4' fill='${acc}' opacity='.6'/><circle cx='${x}' cy='${y}' r='9' fill='none' stroke='${acc}' opacity='.35'/>`:`<path d='M${x-9} ${y}h18M${x} ${y-9}v18' stroke='${acc}' stroke-width='2' opacity='.5'/>`}
-  s+=`</g><rect y='690' width='600' height='110' fill='url(#z)'/><rect y='706' width='600' height='5' fill='${base}' opacity='.5'/>`;
-  for(let i=0;i<20;i++)s+=`<path d='M${i*32+16} 726l12 16-12 16-12-16z' fill='${base}' opacity='.75'/>`;
-  s+=`<rect y='0' width='600' height='34' fill='url(#z)' opacity='.9'/><rect width='600' height='800' fill='url(#f)'/><rect width='600' height='800' fill='url(#v)'/></svg>`;
-  return `url("data:image/svg+xml,${encodeURIComponent(s)}")`
-}
+/* ── SMALL LOGOS & ICONS ─────────────────────────────────── */
+const ICONS = {
+  search: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>`,
+  user: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>`,
+  heart: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>`,
+  heartSmall: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>`,
+  bag: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>`,
+  bagTiny: `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>`,
+  menu: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>`,
+  close: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>`,
+  closeSmall: `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>`,
+  whatsapp: `<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:middle"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2ZM12.04 20.15C10.56 20.15 9.11 19.76 7.85 19.01L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 14.99 3.8 13.47 3.8 11.91C3.8 7.37 7.5 3.67 12.04 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15ZM16.56 14.36C16.31 14.24 15.09 13.64 14.86 13.56C14.63 13.47 14.47 13.43 14.3 13.68C14.14 13.92 13.67 14.47 13.53 14.64C13.39 14.8 13.24 14.82 13 14.7C12.75 14.58 11.96 14.32 11.02 13.48C10.29 12.83 9.79 12.03 9.65 11.78C9.51 11.54 9.63 11.4 9.76 11.28C9.87 11.17 10.01 10.99 10.13 10.85C10.25 10.71 10.29 10.61 10.37 10.44C10.45 10.28 10.41 10.14 10.35 10.01C10.29 9.89 9.8 8.68 9.59 8.19C9.39 7.7 9.19 7.77 9.03 7.76C8.89 7.75 8.72 7.75 8.56 7.75C8.4 7.75 8.13 7.81 7.91 8.05C7.68 8.3 7.04 8.9 7.04 10.11C7.04 11.33 7.93 12.5 8.05 12.67C8.17 12.83 9.79 15.34 12.29 16.41C12.88 16.67 13.34 16.82 13.7 16.94C14.3 17.13 14.84 17.1 15.28 17.04C15.76 16.97 16.76 16.43 16.97 15.84C17.18 15.26 17.18 14.76 17.11 14.64C17.05 14.53 16.89 14.47 16.56 14.36Z"/></svg>`,
+  truck: `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>`,
+  sparkle: `<svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:middle"><path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z"/></svg>`
+};
 
-/* â”€â”€ Product data (fallback; overridden by API) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── Product data (fallback; overridden by API) ───────────── */
 let P=[
-  {id:1,n:'Kanchipuram Silk Saree',c:'Silk',p:18500,o:22000,t:'Bestseller',b:'#8a1230',a:'#e8cf94',k:0,f:'Pure mulberry silk, zari border'},
-  {id:2,n:'Banarasi Bridal Saree',c:'Bridal',p:24800,o:29000,t:'New Arrival',b:'#5a0f26',a:'#d9b866',k:1,f:'Banarasi brocade, gold zari'},
-  {id:3,n:'Soft Cotton Saree',c:'Cotton',p:2450,o:2900,t:'',b:'#2f6b5e',a:'#f2e4c4',k:2,f:'Handloom soft cotton'},
-  {id:4,n:'Designer Festive Saree',c:'Designer',p:9600,o:11500,t:'New Arrival',b:'#1f3a6b',a:'#e8cf94',k:1,f:'Georgette with sequin work'},
-  {id:5,n:'Traditional Zari Silk Saree',c:'Silk',p:14200,o:16500,t:'Bestseller',b:'#c47a1c',a:'#fff2cf',k:0,f:'Silk with woven zari'},
-  {id:6,n:'Elegant Floral Saree',c:'Designer',p:6800,o:0,t:'',b:'#b8556a',a:'#fde9d4',k:2,f:'Organza, printed florals'},
-  {id:7,n:'Temple Border Bridal Silk',c:'Bridal',p:21000,o:25000,t:'Bestseller',b:'#431321',a:'#c6a15b',k:0,f:'Kanchipuram silk, korvai border'},
-  {id:8,n:'Everyday Linen Cotton',c:'Cotton',p:1890,o:0,t:'',b:'#8a7a5c',a:'#fff9f1',k:2,f:'Linen-blend cotton'}
+  {id:1,n:'Kanchipuram Silk Saree',c:'Silk',p:18500,o:22000,t:'Bestseller',b:'#8a1230',a:'#e8cf94',k:0,f:'Pure mulberry silk, zari border',img:'/images/saree_slide_1.jpg'},
+  {id:2,n:'Banarasi Bridal Saree',c:'Bridal',p:24800,o:29000,t:'New Arrival',b:'#5a0f26',a:'#d9b866',k:1,f:'Banarasi brocade, gold zari',img:'/images/saree_slide_2.jpg'},
+  {id:3,n:'Soft Cotton Saree',c:'Cotton',p:2450,o:2900,t:'',b:'#2f6b5e',a:'#f2e4c4',k:2,f:'Handloom soft cotton',img:'/images/saree_slide_3.jpg'},
+  {id:4,n:'Designer Festive Saree',c:'Designer',p:9600,o:11500,t:'New Arrival',b:'#1f3a6b',a:'#e8cf94',k:1,f:'Georgette with sequin work',img:'/images/saree_slide_4.jpg'},
+  {id:5,n:'Traditional Zari Silk Saree',c:'Silk',p:14200,o:16500,t:'Bestseller',b:'#c47a1c',a:'#fff2cf',k:0,f:'Silk with woven zari',img:'/images/saree_slide_1.jpg'},
+  {id:6,n:'Elegant Floral Saree',c:'Designer',p:6800,o:0,t:'',b:'#b8556a',a:'#fde9d4',k:2,f:'Organza, printed florals',img:'/images/saree_slide_4.jpg'},
+  {id:7,n:'Temple Border Bridal Silk',c:'Bridal',p:21000,o:25000,t:'Bestseller',b:'#431321',a:'#c6a15b',k:0,f:'Kanchipuram silk, korvai border',img:'/images/saree_slide_2.jpg'},
+  {id:8,n:'Everyday Linen Cotton',c:'Cotton',p:1890,o:0,t:'',b:'#8a7a5c',a:'#fff9f1',k:2,f:'Linen-blend cotton',img:'/images/saree_slide_3.jpg'}
 ];
 let ORD=[['#1042','Anitha R.','Kanchipuram Silk Saree',18500,'Shipped'],['#1041','Meena K.','Soft Cotton Saree',2450,'Pending'],['#1040','Priya S.','Banarasi Bridal Saree',24800,'Delivered'],['#1039','Lakshmi D.','Designer Festive Saree',9600,'Cancelled']];
 let cart={},wish=new Set(),cat='All',sort='f',view={tab:'dash',auth:false,token:localStorage.getItem('adminToken')||''};
 
-/* â”€â”€ Backend data loading â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── Backend data loading ───────────────────────────────────── */
 async function loadBackendData(){
   try{
     const apiBase = window.API_BASE || '/api';
@@ -589,19 +613,19 @@ async function loadBackendOrders(){
   }catch(e){}
 }
 
-/* â”€â”€ Product image helper â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── Product image helper ───────────────────────────────────── */
 const pi=(p,v=0)=>p.img?`url("${p.img}")`:fab(p.b,p.a,p.k,v);
 
-/* â”€â”€ Toast â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── Toast ──────────────────────────────────────────────────── */
 function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('on'),2200)}
 
-/* â”€â”€ Cart / Wishlist â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── Cart / Wishlist ────────────────────────────────────────── */
 function add(id,q=1){
   cart[id]=(cart[id]||0)+q;
-  toast('Added to your bag âœ“');
+  toast('Added to your bag ✓');
   // Animate the quick-add button
   document.querySelectorAll(`.qa[data-id="${id}"]`).forEach(b=>{
-    b.classList.add('adding');b.textContent='Added âœ“';
+    b.classList.add('adding');b.textContent='Added ✓';
     setTimeout(()=>{b.classList.remove('adding');b.textContent='Quick add'},1200);
   });
   drawer();count();
@@ -617,7 +641,7 @@ function add(id,q=1){
   }
 }
 function wl(id){
-  wish.has(id)?wish.delete(id):(wish.add(id),toast('Saved to wishlist â™¡'));
+  wish.has(id)?wish.delete(id):(wish.add(id),toast('Saved to wishlist ♡'));
   count();
   document.querySelectorAll(`[data-w="${id}"]`).forEach(e=>e.classList.toggle('on',wish.has(id)));
 }
@@ -630,15 +654,15 @@ function open(on){$('#dr').classList.toggle('on',on);$('#scr').classList.toggle(
 $('#scr').onclick=()=>open(false);
 function drawer(show=true){
   const ids=Object.keys(cart).filter(i=>cart[i]>0);let tot=0;
-  $('#dr').innerHTML=`<header><h3>Your Bag</h3><button style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;font-size:20px" onclick="open(false)">âœ•</button></header><div style="flex:1;overflow:auto">`+
+  $('#dr').innerHTML=`<header><h3>Your Bag</h3><button style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;color:inherit;cursor:pointer" onclick="open(false)" aria-label="Close">${ICONS.close}</button></header><div style="flex:1;overflow:auto">`+
   (ids.length?ids.map(i=>{const p=P.find(x=>x.id==i)||{n:'Saree',p:0,b:'#8a1230',a:'#e8cf94',k:0};tot+=p.p*cart[i];
-    return`<div class="ci"><div class="im" style="background-image:${pi(p)}"></div><div><b class="serif" style="font-size:18px">${p.n}</b><div class="pr">${inr(p.p)}</div><div class="q"><button onclick="cart[${i}]--;drawer();count()">âˆ’</button><span>${cart[i]}</span><button onclick="cart[${i}]++;drawer();count()">+</button></div></div><button style="background:none;border:0;color:inherit;cursor:pointer" onclick="delete cart[${i}];drawer();count()">âœ•</button></div>`}).join('')
+    return`<div class="ci"><div class="im" style="background-image:${pi(p)}"></div><div><b class="serif" style="font-size:18px">${p.n}</b><div class="pr">${inr(p.p)}</div><div class="q"><button onclick="cart[${i}]--;drawer();count()">&minus;</button><span>${cart[i]}</span><button onclick="cart[${i}]++;drawer();count()">+</button></div></div><button style="background:none;border:0;color:inherit;cursor:pointer;padding:8px" onclick="delete cart[${i}];drawer();count()" aria-label="Remove">${ICONS.closeSmall}</button></div>`}).join('')
   :`<div class="empty"><h3>Your bag is empty</h3>Discover a saree made for your next celebration.<br><br><a class="btn" href="/shop" onclick="open(false)">Explore collection</a></div>`)+
-  `</div>`+(ids.length?`<div style="padding:20px 22px;border-top:1px solid var(--line)"><div style="display:flex;justify-content:space-between;margin-bottom:14px"><span>Subtotal</span><b>${inr(tot)}</b></div><div style="display:flex;gap:10px"><a class="btn" style="flex:1" href="/checkout">Checkout</a><a class="btn o" style="flex:1" target="_blank" href="https://wa.me/${WA}?text=${encodeURIComponent('Hello Vimala, I would like to order: '+ids.map(i=>((P.find(x=>x.id==i)||{}).n||'Saree')+' Ã—'+cart[i]).join(', ')+' â€” Total '+inr(tot))}">WhatsApp</a></div></div>`:'');
+  `</div>`+(ids.length?`<div style="padding:20px 22px;border-top:1px solid var(--line)"><div style="display:flex;justify-content:space-between;margin-bottom:14px"><span>Subtotal</span><b>${inr(tot)}</b></div><div style="display:flex;gap:10px"><a class="btn" style="flex:1" href="/checkout">Checkout</a><a class="btn o" style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;" target="_blank" rel="noopener" href="https://wa.me/${WA}?text=${encodeURIComponent('Hello Vimala, I would like to order: '+ids.map(i=>((P.find(x=>x.id==i)||{}).n||'Saree')+' ×'+cart[i]).join(', ')+' — Total '+inr(tot))}">${ICONS.whatsapp} WhatsApp</a></div></div>`:'');
   if(show)open(true);
 }
 
-/* â”€â”€ Product card â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── Product card ─────────────────────────────────────────── */
 function card(p){
   const disc = (p.o && p.o > p.p) ? Math.round((1 - p.p / p.o) * 100) : 0;
   return`<div class="pc rv" style="transition-delay:${Math.random()*120}ms">
@@ -646,19 +670,18 @@ function card(p){
       ${p.t?`<span class="tag">${p.t}</span>`:''}
       <div style="background-image:${pi(p)}"></div>
     </a>
-    <button class="wl ${wish.has(p.id)?'on':''}" data-w="${p.id}" aria-label="Wishlist" onclick="wl(${p.id})">â™¥</button>
-    <button class="qa" data-id="${p.id}" onclick="add(${p.id})">Quick add</button>
-    <div class="m">${p.c} Â· ${p.f ? p.f.split(',')[0] : 'Handloom'}</div>
+    <button class="wl ${wish.has(p.id)?'on':''}" data-w="${p.id}" aria-label="Wishlist" onclick="wl(${p.id})">${ICONS.heartSmall}</button>
+    <div class="m">${p.c} &bull; ${p.f ? p.f.split(',')[0] : 'Handloom'}</div>
     <h3><a href="/product/${p.id}" style="color:inherit">${p.n}</a></h3>
     <div class="pr">${inr(p.p)}${disc ? `<s>${inr(p.o)}</s><em>${disc}% off</em>` : ''}</div>
-    <div style="display:flex;gap:8px;margin-top:12px;">
-      <a class="btn o" style="flex:1;padding:8px 10px;font-size:11px;" href="/product/${p.id}">View Product</a>
-      <button class="btn" style="flex:1;padding:8px 10px;font-size:11px;" onclick="add(${p.id})">Add to Cart</button>
+    <div class="pc-actions">
+      <a class="btn o" href="/product/${p.id}">View Product</a>
+      <button class="btn" onclick="add(${p.id})">${ICONS.bagTiny} Add to Cart</button>
     </div>
   </div>`
 }
 
-/* â”€â”€ Filter + render products â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── Filter + render products ─────────────────────────────── */
 function list(){
   let l = P;
   if (cat === 'New Arrivals') {
@@ -677,17 +700,25 @@ function list(){
 
 function setCat(c){cat=c;if(location.hash!='#/'&&location.hash!='')location.hash='#/';list();document.getElementById('shop')?.scrollIntoView({behavior:'smooth'})}
 
-/* â”€â”€ SVG icons â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── SVG icons ────────────────────────────────────────────── */
 const ico=d=>`<svg viewBox="0 0 32 32"><path d="${d}"/></svg>`;
 
-/* â”€â”€ Navbar â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── Navbar ───────────────────────────────────────────────── */
 function head(){
   const user = JSON.parse(localStorage.getItem('saree_user') || 'null');
-  return`<div class="ann">âœ¦ Free shipping on orders above â‚¹3,000 &nbsp;Â·&nbsp; Handcrafted Heritage Sarees &nbsp;Â·&nbsp; WhatsApp: 97863 58839 âœ¦</div>
+  return`<div class="ann">
+    <span class="ann-item">${ICONS.truck} Free shipping on orders above ₹3,000</span>
+    <span class="ann-sep">•</span>
+    <span class="ann-item">${ICONS.sparkle} Handcrafted Heritage Sarees</span>
+    <span class="ann-sep">•</span>
+    <a href="https://wa.me/${WA}" target="_blank" rel="noopener" class="ann-item">
+      ${ICONS.whatsapp} WhatsApp: 97863 58839
+    </a>
+  </div>
   <header id="site-header">
     <div class="w">
       <div class="nav">
-        <button class="burger" onclick="document.getElementById('lk').classList.toggle('open')" aria-label="Menu">â˜°</button>
+        <button class="burger" onclick="document.getElementById('lk').classList.toggle('open')" aria-label="Menu">${ICONS.menu}</button>
         <nav class="links" id="lk">
           <a href="/">Home</a>
           <a href="/shop">Shop All</a>
@@ -701,28 +732,28 @@ function head(){
           <small>Enterprises</small>
         </a>
         <div class="ic">
-          <button aria-label="Search" onclick="$('#sr').classList.toggle('on');$('#sq').focus()">âŒ•</button>
+          <button aria-label="Search" title="Search sarees" onclick="$('#sr').classList.toggle('on');$('#sq').focus()">${ICONS.search}</button>
           ${user ? `
-            <a aria-label="Orders" href="/orders" title="My Orders" style="font-size:12px;font-weight:600;display:flex;align-items:center;gap:4px;color:var(--wine);padding:0 6px;">
-              ðŸ“¦ <span>${user.name.split(' ')[0]}</span>
+            <a aria-label="Orders" href="/orders" title="My Orders" style="font-size:12px;font-weight:600;display:inline-flex;align-items:center;gap:6px;color:var(--wine);padding:5px 12px;border-radius:20px;background:rgba(198,161,91,.15);border:1px solid var(--line);text-decoration:none;">
+              ${ICONS.user} <span>${user.name.split(' ')[0]}</span>
             </a>
           ` : `
-            <a aria-label="Account" href="/login" title="Sign In" style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;font-size:18px">â˜º</a>
+            <a aria-label="Account" href="/login" title="Sign In" style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;color:var(--wine);text-decoration:none;">${ICONS.user}</a>
           `}
-          <button aria-label="Wishlist" onclick="toast(wish.size+' saved to wishlist')">â™¡<sup id="wc">${wish.size}</sup></button>
-          <a aria-label="Bag" href="/cart" style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;font-size:18px;position:relative">
-            ðŸ‘œ<sup id="cc">${Object.values(cart).reduce((a,b)=>a+b,0)}</sup>
+          <button aria-label="Wishlist" title="Wishlist" onclick="toast(wish.size+' saved to wishlist')">${ICONS.heart}<sup id="wc">${wish.size}</sup></button>
+          <a aria-label="Bag" href="/cart" title="Shopping Bag" style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;position:relative;color:var(--wine);text-decoration:none;">
+            ${ICONS.bag}<sup id="cc">${Object.values(cart).reduce((a,b)=>a+b,0)}</sup>
           </a>
         </div>
       </div>
       <div class="search" id="sr">
-        <input id="sq" placeholder="Search sarees, fabrics, coloursâ€¦" oninput="srch(this.value)">
+        <input id="sq" placeholder="Search sarees, fabrics, colours…" oninput="srch(this.value)">
       </div>
     </div>
   </header>`
 }
 
-/* â”€â”€ Search â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── Search ───────────────────────────────────────────────── */
 function srch(v){
   v=v.toLowerCase();
   if(location.hash!=''&&location.hash!='#/')location.hash='#/';
@@ -733,16 +764,16 @@ function srch(v){
   },30);
 }
 
-/* â”€â”€ Footer â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── Footer ───────────────────────────────────────────────── */
 function foot(){
   return`<footer>
     <div class="w">
       <div class="fg">
         <div>
           <a class="logo" href="/" style="padding:0"><b>SS SAI</b><small>Enterprises</small></a>
-          <p style="margin-top:16px">Sarees for everyday grace, festive celebrations and unforgettable occasions â€” curated by Vimala.</p>
+          <p style="margin-top:16px">Sarees for everyday grace, festive celebrations and unforgettable occasions — curated by Vimala.</p>
           <div style="margin-top:20px;display:flex;gap:12px">
-            <a href="https://wa.me/${WA}" target="_blank" style="width:36px;height:36px;border-radius:50%;background:#25a05a;display:flex;align-items:center;justify-content:center;color:#fff;font-size:18px">âœ†</a>
+            <a href="https://wa.me/${WA}" target="_blank" rel="noopener" style="width:36px;height:36px;border-radius:50%;background:#25a05a;display:flex;align-items:center;justify-content:center;color:#fff;" title="WhatsApp">${ICONS.whatsapp}</a>
           </div>
         </div>
         <div>
@@ -761,28 +792,28 @@ function foot(){
         </div>
         <div>
           <h4>Contact &amp; Helpline</h4>
-          <a href="https://wa.me/${WA}" target="_blank">WhatsApp: 97863 58839</a>
-          <p style="font-size:12px;color:var(--mute);margin-top:6px">Monâ€“Sat: 9:00 AM â€“ 8:00 PM IST</p>
+          <a href="https://wa.me/${WA}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;">${ICONS.whatsapp} WhatsApp: 97863 58839</a>
+          <p style="font-size:12px;color:var(--mute);margin-top:6px">Mon–Sat: 9:00 AM – 8:00 PM IST</p>
         </div>
       </div>
       <div class="fb">
-        <span>Â© 2026 SS Sai Enterprises. Handcrafted Indian Sarees.</span>
+        <span>© 2026 SS Sai Enterprises. Handcrafted Indian Sarees.</span>
         <span>Curated with tradition and passion.</span>
       </div>
     </div>
   </footer>
-  <a class="wa" target="_blank" href="https://wa.me/${WA}?text=Hello%20Vimala">ðŸ’¬ WhatsApp us</a>`
+  <a class="wa" target="_blank" rel="noopener" href="https://wa.me/${WA}?text=Hello%20Vimala">${ICONS.whatsapp} <span>WhatsApp us</span></a>`
 }
 
 
-/* â”€â”€ Reviews data â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── Reviews data ───────────────────────────────────────────── */
 const T=[
-  ['Meena K.','Chennai','The Kanchipuram silk drape and zari were exactly as promised. Vimala guided me over WhatsApp â€” exceptional service.'],
-  ['Priya S.','Coimbatore','Perfect cotton sarees for work â€” soft, light, and beautifully finished. I ordered three more within a week!'],
+  ['Meena K.','Chennai','The Kanchipuram silk drape and zari were exactly as promised. Vimala guided me over WhatsApp — exceptional service.'],
+  ['Priya S.','Coimbatore','Perfect cotton sarees for work — soft, light, and beautifully finished. I ordered three more within a week!'],
   ['Lakshmi D.','Madurai','My bridal order arrived carefully packed and ahead of schedule. Truly heirloom quality I will cherish forever.']
 ];
 
-/* â”€â”€ HERO SLIDES â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── HERO SLIDES ─────────────────────────────────────────────── */
 const HERO_SLIDES=[
   {src:'/images/hero_bg_1.jpg',fallback:'#641B2E'},
   {src:'/images/hero_bg_2.jpg',fallback:'#431321'},
@@ -830,7 +861,7 @@ function goHeroSlide(idx){
 }
 function nextHeroSlide(){goHeroSlide((heroIdx+1)%HERO_SLIDES.length)}
 
-/* â”€â”€ 3D SHOWROOM BUILD â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── 3D SHOWROOM BUILD ──────────────────────────────────────── */
 function buildShowroom(){
   const stage=$('#sr-stage');if(!stage)return;
   // Pick 5 products for the showroom
@@ -855,7 +886,7 @@ function buildShowroom(){
   });
 }
 
-/* â”€â”€ HOME PAGE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── HOME PAGE ──────────────────────────────────────────────── */
 function home(){
   const catData=[
     {c:'Silk',t:'Silk Sarees',badge:'Heritage',img:'/images/saree_slide_1.jpg',url:'/shop?category=silk-sarees'},
@@ -866,14 +897,14 @@ function home(){
 
   return head()+`
 
-<!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• CINEMATIC HERO â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+<!-- ═══════════════ CINEMATIC HERO ══════════════════ -->
 <section class="cinematic-hero" id="ch" aria-label="Hero">
   <div id="hero-slides"></div>
   <div class="ch-overlay" aria-hidden="true"></div>
   <div class="ch-grain" aria-hidden="true"></div>
 
   <div class="ch-content">
-    <span class="ch-eyebrow">SS SAI Enterprises Â· Luxury Sarees</span>
+    <span class="ch-eyebrow">SS SAI Enterprises • Luxury Sarees</span>
     <h1 class="ch-h1">Elegance Woven<br>in <em>Every Thread</em></h1>
     <p class="ch-sub">Discover authentic handloom, bridal silks, and everyday grace curated by master artisans.</p>
     <div class="ch-cta">
@@ -890,15 +921,15 @@ function home(){
   <div class="ch-rule" aria-hidden="true"></div>
 </section>
 
-<!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• MARQUEE â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+<!-- ═══════════════ MARQUEE ══════════════════════════ -->
 <div class="marquee-wrap" aria-hidden="true">
   <div class="marquee-track">
-    ${['Pure Silk Sarees','Bridal Collections','Handloom Weaves','Zari Embroidery','Kanchipuram','Banarasi','Cotton Drapes','Designer Sarees','Temple Borders','Festival Wear'].flatMap(w=>[`<span>${w}</span>`,`<span class="sep">âœ¦</span>`]).join('')}
-    ${['Pure Silk Sarees','Bridal Collections','Handloom Weaves','Zari Embroidery','Kanchipuram','Banarasi','Cotton Drapes','Designer Sarees','Temple Borders','Festival Wear'].flatMap(w=>[`<span>${w}</span>`,`<span class="sep">âœ¦</span>`]).join('')}
+    ${['Pure Silk Sarees','Bridal Collections','Handloom Weaves','Zari Embroidery','Kanchipuram','Banarasi','Cotton Drapes','Designer Sarees','Temple Borders','Festival Wear'].flatMap(w=>[`<span>${w}</span>`,`<span class="sep">✦</span>`]).join('')}
+    ${['Pure Silk Sarees','Bridal Collections','Handloom Weaves','Zari Embroidery','Kanchipuram','Banarasi','Cotton Drapes','Designer Sarees','Temple Borders','Festival Wear'].flatMap(w=>[`<span>${w}</span>`,`<span class="sep">✦</span>`]).join('')}
   </div>
 </div>
 
-<!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• COLLECTIONS â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+<!-- ═══════════════ COLLECTIONS ══════════════════════ -->
 <section class="s" aria-labelledby="col-hd">
   <div class="w">
     <div class="hd rv-up">
@@ -911,14 +942,14 @@ function home(){
         <a class="col rv" style="transition-delay:${i*80}ms" href="${url}">
           <div class="im" style="background-image:url('${img}');background-color:${P.find(p=>p.c==c)?.b||'#641B2E'}"></div>
           <div class="col-badge">${badge}</div>
-          <span>${t}<small>Explore Collection â†’</small></span>
+          <span>${t}<small>Explore Collection →</small></span>
           <div class="col-gold-line"></div>
         </a>`).join('')}
     </div>
   </div>
 </section>
 
-<!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• 3D SHOWROOM â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+<!-- ═══════════════ 3D SHOWROOM ════════════════════════ -->
 <section class="showroom" aria-labelledby="sr-hd">
   <div class="w">
     <div class="hd rv-up">
@@ -933,7 +964,7 @@ function home(){
   </div>
 </section>
 
-<!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• PRODUCTS â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+<!-- ═══════════════ PRODUCTS ══════════════════════════ -->
 <section class="s" id="shop" aria-labelledby="shop-hd">
   <div class="w">
     <div class="hd rv-up">
@@ -960,7 +991,7 @@ function home(){
 </section>
 
 
-<!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• STORY â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+<!-- ═══════════════ STORY ════════════════════════════ -->
 <div class="w">
   <div class="story rv-scale">
     <div class="im rv-left" style="background-image:url('/images/vimala-tradition.jpg');background-color:#641B2E"></div>
@@ -973,7 +1004,7 @@ function home(){
   </div>
 </div>
 
-<!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• TRUST â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+<!-- ═══════════════ TRUST ════════════════════════════ -->
 <div class="trust-wrap">
   <div class="w">
     <div class="trust">
@@ -990,26 +1021,26 @@ function home(){
   </div>
 </div>
 
-<!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• REVIEWS â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+<!-- ═══════════════ REVIEWS ══════════════════════════ -->
 <section class="s" aria-labelledby="rev-hd">
   <div class="w">
     <div class="hd rv-up">
-      <span class="eyebrow">Kind words Â· demonstration content</span>
+      <span class="eyebrow">Kind words • demonstration content</span>
       <h2 id="rev-hd">Loved by Our Patrons</h2>
       <div class="gold-rule"></div>
     </div>
     <div class="rev">
       ${T.map((t,i)=>`
         <blockquote class="rv" style="transition-delay:${i*100}ms">
-          <div class="stars">â˜…â˜…â˜…â˜…â˜…</div>
+          <div class="stars">★★★★★</div>
           <q>${t[2]}</q>
-          <cite>${t[0]} Â· ${t[1]}</cite>
+          <cite>${t[0]} • ${t[1]}</cite>
         </blockquote>`).join('')}
     </div>
   </div>
 </section>
 
-<!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• GALLERY â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+<!-- ═══════════════ GALLERY ═══════════════════════════ -->
 <section class="s" style="padding-top:0" aria-labelledby="gal-hd">
   <div class="w">
     <div class="hd rv-up">
@@ -1033,7 +1064,7 @@ function home(){
 ${foot()}`
 }
 
-/* â”€â”€ Product detail page â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── Product detail page ─────────────────────────────────────── */
 function prod(id){
   const p=P.find(x=>x.id==id)||P[0];let v=0,q=1;
   setTimeout(()=>{
@@ -1055,16 +1086,16 @@ function prod(id){
         <p style="color:var(--mute)">${p.f}. Rich weave, graceful fall, and a finish made for celebrations. Includes matching blouse piece.</p>
         <span class="m" style="font-size:11px;letter-spacing:.14em;text-transform:uppercase">Colour</span>
         <div class="sw"><i class="on" style="background:${p.b}"></i><i style="background:#1f3a6b"></i><i style="background:#2f6b5e"></i></div>
-        <div class="q"><button onclick="pq(-1)">âˆ’</button><span id="qv">1</span><button onclick="pq(1)">+</button></div>
+        <div class="q"><button onclick="pq(-1)">−</button><span id="qv">1</span><button onclick="pq(1)">+</button></div>
         <div class="row">
           <button class="btn" onclick="pa()">Add to Cart</button>
           <button class="btn o" onclick="pa(1)">Buy Now</button>
-          <button class="btn o wl" style="position:static;width:50px;flex:none;min-width:0;border-radius:0" data-w="${p.id}" onclick="wl(${p.id})">â™¥</button>
+          <button class="btn o wl" style="position:static;width:50px;flex:none;min-width:0;border-radius:0" data-w="${p.id}" onclick="wl(${p.id})">♥</button>
         </div>
         <a class="btn o" style="display:block" target="_blank" href="https://wa.me/${WA}?text=${encodeURIComponent('Hello, enquiry about '+p.n)}">Enquire on WhatsApp</a>
         <div style="margin-top:24px">
           <details open><summary>Fabric &amp; details</summary><p>Fabric: ${p.f}. Length 5.5 m with 0.8 m blouse piece. Dry clean recommended.</p></details>
-          <details><summary>Delivery</summary><p>Dispatch in 2â€“4 working days. Insured shipping across India.</p></details>
+          <details><summary>Delivery</summary><p>Dispatch in 2–4 working days. Insured shipping across India.</p></details>
           <details><summary>Returns</summary><p>Easy returns within 7 days of delivery, unworn and in original packing.</p></details>
         </div>
       </div>
@@ -1072,32 +1103,32 @@ function prod(id){
   </div>`+foot()
 }
 
-/* â”€â”€ Admin page â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── Admin page ──────────────────────────────────────────────── */
 function admin(){
   if(!view.auth)return`<div class="lg"><a class="logo" style="display:block"><b>SS SAI</b><small>Admin Console</small></a><div class="f" style="display:block;border:0;padding:0"><label>Email</label><input id="ae" value="vimala@sssai.in"><br><br><label>Password</label><input id="apw" type="password" value="demo1234"><br><br><button class="btn" style="width:100%" onclick="doLogin()">Sign in</button><p id="alm" style="font-size:12px;color:#7a6d66;text-align:center;margin-top:10px">SS Sai Admin Login</p></div></div>`;
   const tabs=[['dash','Dashboard'],['prod','Products'],['add','Add product'],['ord','Orders'],['inv','Inventory']],t=view.tab;
   const sb={Shipped:'g',Delivered:'g',Pending:'y',Cancelled:'r',Processing:'y'};
   const tb=(h,rows)=>`<div class="tw"><table><tr>${h.map(x=>`<th>${x}</th>`).join('')}</tr>${rows.map(r=>`<tr>${r.map(c=>`<td>${c}</td>`).join('')}</tr>`).join('')}</table></div>`;
   const body={
-    dash:`<h2>Dashboard</h2><div class="st"><div><small>Products</small><b>${P.length}</b></div><div><small>Orders</small><b>${ORD.length}</b></div><div><small>Sales (month)</small><b>â‚¹${(ORD.reduce((s,o)=>s+(+o[3]||0),0)||480000).toLocaleString('en-IN')}</b></div><div><small>Customers</small><b>${Math.max(212,ORD.length*15)}</b></div></div><h3 class="serif" style="font-size:24px;margin-bottom:10px">Recent orders</h3>${tb(['Order','Customer','Item','Amount','Status'],ORD.map(o=>[o[0],o[1],o[2],inr(o[3]),`<span class="b ${sb[o[4]]||'g'}">${o[4]}</span>`]))}`,
-    prod:`<h2>Products</h2>${tb(['','Name','Category','Price','Stock'],P.map((p)=>[`<div style="width:36px;height:46px;background-image:${pi(p)};background-size:cover"></div>`,p.n,p.c,inr(p.p),`<span class="b ${(p.stock||12)<=3?'y':'g'}">${(p.stock||12)<=3?'Low Â· '+(p.stock||3):p.stock||12}</span>`]))}`,
-    add:`<h2>Add product</h2><div class="f"><div class="full"><label>Name</label><input id="an" placeholder="e.g. Pure Kanchipuram Silk"></div><div class="full"><label>Description</label><textarea id="ad" rows="3" placeholder="Handwoven mulberry silk with rich zari pallu..."></textarea></div><div><label>Price (â‚¹)</label><input id="ap" type="number" placeholder="18500"></div><div><label>Original price (â‚¹)</label><input id="aop" type="number" placeholder="22000"></div><div><label>Category</label><select id="ac"><option>Silk</option><option>Cotton</option><option>Designer</option><option>Bridal</option></select></div><div><label>Fabric</label><input id="af" placeholder="e.g. Mulberry Silk"></div><div><label>Colour</label><input id="acl" placeholder="e.g. Maroon &amp; Gold"></div><div><label>Stock</label><input id="ast" type="number" value="10"></div><div class="full"><label>Image URL (optional)</label><input id="aim" placeholder="https://..."></div><label class="full"><input id="aft" type="checkbox" style="width:auto"> Featured product</label><div class="full"><button class="btn" onclick="saveP()">Save product to database</button></div></div>`,
+    dash:`<h2>Dashboard</h2><div class="st"><div><small>Products</small><b>${P.length}</b></div><div><small>Orders</small><b>${ORD.length}</b></div><div><small>Sales (month)</small><b>₹${(ORD.reduce((s,o)=>s+(+o[3]||0),0)||480000).toLocaleString('en-IN')}</b></div><div><small>Customers</small><b>${Math.max(212,ORD.length*15)}</b></div></div><h3 class="serif" style="font-size:24px;margin-bottom:10px">Recent orders</h3>${tb(['Order','Customer','Item','Amount','Status'],ORD.map(o=>[o[0],o[1],o[2],inr(o[3]),`<span class="b ${sb[o[4]]||'g'}">${o[4]}</span>`]))}`,
+    prod:`<h2>Products</h2>${tb(['','Name','Category','Price','Stock'],P.map((p)=>[`<div style="width:36px;height:46px;background-image:${pi(p)};background-size:cover"></div>`,p.n,p.c,inr(p.p),`<span class="b ${(p.stock||12)<=3?'y':'g'}">${(p.stock||12)<=3?'Low • '+(p.stock||3):p.stock||12}</span>`]))}`,
+    add:`<h2>Add product</h2><div class="f"><div class="full"><label>Name</label><input id="an" placeholder="e.g. Pure Kanchipuram Silk"></div><div class="full"><label>Description</label><textarea id="ad" rows="3" placeholder="Handwoven mulberry silk with rich zari pallu..."></textarea></div><div><label>Price (₹)</label><input id="ap" type="number" placeholder="18500"></div><div><label>Original price (₹)</label><input id="aop" type="number" placeholder="22000"></div><div><label>Category</label><select id="ac"><option>Silk</option><option>Cotton</option><option>Designer</option><option>Bridal</option></select></div><div><label>Fabric</label><input id="af" placeholder="e.g. Mulberry Silk"></div><div><label>Colour</label><input id="acl" placeholder="e.g. Maroon &amp; Gold"></div><div><label>Stock</label><input id="ast" type="number" value="10"></div><div class="full"><label>Image URL (optional)</label><input id="aim" placeholder="https://..."></div><label class="full"><input id="aft" type="checkbox" style="width:auto"> Featured product</label><div class="full"><button class="btn" onclick="saveP()">Save product to database</button></div></div>`,
     ord:`<h2>Orders</h2>${tb(['Order','Customer','Item','Amount','Status'],ORD.map(o=>[o[0],o[1],o[2],inr(o[3]),`<span class="b ${sb[o[4]]||'g'}">${o[4]}</span>`]))}`,
     inv:`<h2>Inventory</h2>${tb(['Product','In stock','Status'],P.map((p)=>[p.n,p.stock||12,`<span class="b ${(p.stock||12)<=3?'y':'g'}">${(p.stock||12)<=3?'Reorder':'Healthy'}</span>`]))}`
   }[t];
-  return`<div class="ad"><aside><a class="logo" style="display:block"><b>SS SAI</b><small>Admin</small></a>${tabs.map(([k,l])=>`<button class="${k==t?'on':''}" onclick="view.tab='${k}';route()">${l}</button>`).join('')}<button onclick="location.hash='#/'">â† View store</button></aside><main>${body}</main></div>`
+  return`<div class="ad"><aside><a class="logo" style="display:block"><b>SS SAI</b><small>Admin</small></a>${tabs.map(([k,l])=>`<button class="${k==t?'on':''}" onclick="view.tab='${k}';route()">${l}</button>`).join('')}<button onclick="location.hash='#/'">← View store</button></aside><main>${body}</main></div>`
 }
 
-/* â”€â”€ Admin auth â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── Admin auth ─────────────────────────────────────────────── */
 async function doLogin(){
   const e=$('#ae')?.value.trim(),p=$('#apw')?.value;
   try{
     const apiBase = window.API_BASE || '/api';
     const r=await fetch(`${apiBase}/auth/admin-login`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:e,password:p})});
     const d=await r.json();
-    if(d.success&&d.token){view.auth=true;view.token=d.token;localStorage.setItem('adminToken',d.token);toast('Welcome '+d.user.name+' âœ“');loadBackendOrders();route();return;}
+    if(d.success&&d.token){view.auth=true;view.token=d.token;localStorage.setItem('adminToken',d.token);toast('Welcome '+d.user.name+' ✓');loadBackendOrders();route();return;}
   }catch(err){}
-  view.auth=true;toast('Admin signed in âœ“');route();
+  view.auth=true;toast('Admin signed in ✓');route();
 }
 async function saveP(){
   const n=$('#an').value.trim(),pr=+$('#ap').value,c=$('#ac').value;
@@ -1107,15 +1138,15 @@ async function saveP(){
     const apiBase = window.API_BASE || '/api';
     const r=await fetch(`${apiBase}/products`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
     const d=await r.json();
-    if(d.success){toast('Saved to database âœ“');loadBackendData();view.tab='prod';route();return}
+    if(d.success){toast('Saved to database ✓');loadBackendData();view.tab='prod';route();return}
   }catch(e){}
   P.push({id:P.length+1,n,c,p:pr,o:payload.original_price,t:'New Arrival',b:'#7a2a3a',a:'#e8cf94',k:1,f:payload.fabric,stock:payload.stock});
-  view.tab='prod';route();toast('Product saved âœ“');
+  view.tab='prod';route();toast('Product saved ✓');
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ═══════════════════════════════════════════════════════════════
    ROUTER
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+   ═══════════════════════════════════════════════════════════════ */
 function route(){
   const h=location.hash,a=$('#app');
   if(h.startsWith('#/admin'))a.innerHTML=admin();
@@ -1126,9 +1157,9 @@ function route(){
   drawer(false);fx();
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+/* ═══════════════════════════════════════════════════════════════
    VISUAL EFFECTS ENGINE
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+   ═══════════════════════════════════════════════════════════════ */
 const RM=matchMedia('(prefers-reduced-motion:reduce)').matches;
 let io=null;
 
@@ -1175,7 +1206,7 @@ function fx(){
   }
 }
 
-/* â”€â”€ Mouse parallax â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── Mouse parallax ─────────────────────────────────────────── */
 if(!RM){
   let mx=0,my=0;
   addEventListener('pointermove',e=>{mx=e.clientX/innerWidth-.5;my=e.clientY/innerHeight-.5});
@@ -1201,7 +1232,7 @@ if(!RM){
   });
 }
 
-/* â”€â”€ Route and load â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ── Route and load ─────────────────────────────────────────── */
 addEventListener('hashchange',()=>{route();scrollTo(0,0)});
 route();
 loadBackendData();

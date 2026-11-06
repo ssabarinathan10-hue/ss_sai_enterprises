@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Your Bag â€” SS Sai Enterprises</title>
+  <title>Your Bag — SS Sai Enterprises</title>
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/components.css">
   <link rel="stylesheet" href="/css/pages.css">
@@ -15,7 +15,7 @@
   <div class="page-banner">
     <div class="container">
       <div class="breadcrumbs" style="justify-content:center;margin-bottom:12px;">
-        <a href="/">Home</a><span class="sep">â€º</span><span class="current">Bag</span>
+        <a href="/">Home</a><span class="sep">›</span><span class="current">Bag</span>
       </div>
       <h1>Your shopping bag</h1>
       <p>Quantities and totals are saved to your account.</p>
@@ -28,7 +28,7 @@
     </div>
     <div id="cart-loading" style="text-align:center;padding:80px">
       <div class="spinner"></div>
-      <p style="margin-top:16px;color:var(--smoke)">Loading your bagâ€¦</p>
+      <p style="margin-top:16px;color:var(--smoke)">Loading your bag…</p>
     </div>
     <div id="cart-empty" style="display:none">
       <div class="empty-state" style="padding:100px 24px">
@@ -60,11 +60,11 @@
       <div>
         <div class="order-summary-card">
           <h2 class="summary-title">Order summary</h2>
-          <div class="summary-line"><span>Subtotal</span><span class="value" id="summary-subtotal">â‚¹0</span></div>
-          <div class="summary-line" id="shipping-row"><span>Shipping</span><span class="value" id="summary-shipping">â‚¹150</span></div>
-          <div class="summary-line"><span>GST (5%)</span><span class="value" id="summary-tax">â‚¹0</span></div>
-          <div class="summary-line" id="discount-row" style="display:none;color:var(--success)"><span>Discount</span><span class="value" id="summary-discount">-â‚¹0</span></div>
-          <div class="summary-line total"><span>Payable</span><span id="summary-total">â‚¹0</span></div>
+          <div class="summary-line"><span>Subtotal</span><span class="value" id="summary-subtotal">₹0</span></div>
+          <div class="summary-line" id="shipping-row"><span>Shipping</span><span class="value" id="summary-shipping">₹150</span></div>
+          <div class="summary-line"><span>GST (5%)</span><span class="value" id="summary-tax">₹0</span></div>
+          <div class="summary-line" id="discount-row" style="display:none;color:var(--success)"><span>Discount</span><span class="value" id="summary-discount">-₹0</span></div>
+          <div class="summary-line total"><span>Payable</span><span id="summary-total">₹0</span></div>
           <p style="font-size:0.8rem;color:var(--smoke);margin:8px 0 16px">Final charges are calculated by the server when you place the order.</p>
           <div class="coupon-input-row">
             <label class="sr-only" for="coupon-input">Coupon code</label>
@@ -131,7 +131,7 @@
         <td><span class="price-current">${formatPrice(item.price)}</span></td>
         <td>
           <div class="qty-stepper">
-            <button class="qty-btn" type="button" onclick="updateQty(${item.id}, ${item.quantity - 1})" aria-label="Decrease">âˆ’</button>
+            <button class="qty-btn" type="button" onclick="updateQty(${item.id}, ${item.quantity - 1})" aria-label="Decrease">−</button>
             <span class="qty-value" style="width:40px;display:inline-block;text-align:center">${item.quantity}</span>
             <button class="qty-btn" type="button" onclick="updateQty(${item.id}, ${item.quantity + 1})" aria-label="Increase">+</button>
           </div>

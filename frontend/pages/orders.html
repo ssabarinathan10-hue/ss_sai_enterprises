@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>My Orders â€” SS SAI Enterprises</title>
+  <title>My Orders — SS SAI Enterprises</title>
   <meta name="description" content="Track and manage your curated saree orders from SS Sai Enterprises.">
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/components.css">
@@ -17,7 +17,7 @@
   <div class="page-banner">
     <div class="container">
       <div class="breadcrumbs" style="justify-content:center;margin-bottom:12px;">
-        <a href="/">Home</a><span class="sep">â€º</span><span class="current">My Orders</span>
+        <a href="/">Home</a><span class="sep">›</span><span class="current">My Orders</span>
       </div>
       <h1>My Orders</h1>
       <p>Track your saree shipments, order breakdowns, and delivery timelines.</p>
@@ -29,7 +29,7 @@
     <!-- Auth check -->
     <div id="auth-required" style="display:none;">
       <div class="empty-state">
-        <div class="empty-state-icon">ðŸ”’</div>
+        <div class="empty-state-icon">🔒</div>
         <h3>Sign In Required</h3>
         <p>Please log in to view your orders and track past purchases.</p>
         <a href="/login?redirect=/orders" class="btn btn-primary btn-lg">Sign In to My Account</a>
@@ -39,13 +39,13 @@
     <!-- Loading -->
     <div id="orders-loading" style="text-align:center;padding:80px;">
       <div class="spinner"></div>
-      <p style="margin-top:16px;color:var(--smoke)">Fetching your orders from the vaultâ€¦</p>
+      <p style="margin-top:16px;color:var(--smoke)">Fetching your orders from the vault…</p>
     </div>
 
     <!-- Empty orders -->
     <div id="orders-empty" style="display:none;">
       <div class="empty-state">
-        <div class="empty-state-icon">ðŸ¥»</div>
+        <div class="empty-state-icon">🧺</div>
         <h3>No Orders Yet</h3>
         <p>You haven't placed any saree orders yet. Discover our curated collection and find the perfect drape!</p>
         <a href="/shop" class="btn btn-primary btn-lg">Explore Collection</a>
@@ -69,7 +69,7 @@
   <div class="modal" style="max-width:680px;max-height:90vh;overflow-y:auto;">
     <div class="modal-header">
       <h3 class="modal-title" id="modal-order-id">Order Details</h3>
-      <button class="modal-close" onclick="closeModal()">âœ•</button>
+      <button class="modal-close" onclick="closeModal()">✕</button>
     </div>
     <div id="modal-content" style="padding:24px"></div>
   </div>
@@ -89,11 +89,11 @@
   document.getElementById('chrome-footer').innerHTML = storeFooter();
 
   const STATUS_CONFIG = {
-    'Processing':  { class: 'status-processing',  step: 0, icon: 'â³' },
-    'Dispatched':  { class: 'status-dispatched',  step: 1, icon: 'ðŸ“¦' },
-    'In Transit':  { class: 'status-transit',     step: 2, icon: 'ðŸšš' },
-    'Delivered':   { class: 'status-delivered',   step: 3, icon: 'âœ…' },
-    'Cancelled':   { class: 'status-cancelled',   step: -1, icon: 'âœ•' },
+    'Processing':  { class: 'status-processing',  step: 0, icon: '⏳' },
+    'Dispatched':  { class: 'status-dispatched',  step: 1, icon: '📦' },
+    'In Transit':  { class: 'status-transit',     step: 2, icon: '🚚' },
+    'Delivered':   { class: 'status-delivered',   step: 3, icon: '✅' },
+    'Cancelled':   { class: 'status-cancelled',   step: -1, icon: '✕' },
   };
 
   function getStatusStep(status) {
@@ -113,7 +113,7 @@
       <div class="order-timeline">
         ${steps.map((s, i) => `
           <div class="timeline-step ${i < currentStep ? 'done' : i === currentStep ? 'active' : ''}">
-            <div class="timeline-dot">${STATUS_CONFIG[s]?.icon || 'â€¢'}</div>
+            <div class="timeline-dot">${STATUS_CONFIG[s]?.icon || '•'}</div>
             <div class="timeline-label">${s}</div>
           </div>`).join('')}
       </div>`;
@@ -176,7 +176,7 @@
     } catch (err) {
       document.getElementById('orders-loading').innerHTML = `
         <div class="empty-state">
-          <div class="empty-state-icon">âš ï¸</div>
+          <div class="empty-state-icon">⚠️</div>
           <h3>Could not load orders</h3>
           <p>${escapeHtml(err.message || 'Please verify your session and try again.')}</p>
         </div>`;
@@ -209,8 +209,8 @@
           <div style="font-size:0.9rem;color:var(--charcoal);line-height:1.6;">
             <strong>${escapeHtml(order.shipping_name || '')}</strong><br>
             ${escapeHtml(order.shipping_address || '')},<br>
-            ${escapeHtml(order.shipping_city || '')}, ${escapeHtml(order.shipping_state || '')} â€“ ${escapeHtml(order.shipping_pincode || '')}<br>
-            ðŸ“ž ${escapeHtml(order.shipping_phone || '')}
+            ${escapeHtml(order.shipping_city || '')}, ${escapeHtml(order.shipping_state || '')} – ${escapeHtml(order.shipping_pincode || '')}<br>
+            📞 ${escapeHtml(order.shipping_phone || '')}
           </div>
         </div>
 
@@ -221,7 +221,7 @@
               <img src="${escapeHtml(item.image_url || '/images/saree_slide_1.jpg')}" style="width:60px;height:75px;object-fit:cover;border-radius:var(--radius-sm);" onerror="this.src='/images/saree_slide_1.jpg'">
               <div style="flex:1;">
                 <div style="font-weight:600;color:var(--charcoal);font-size:0.92rem">${escapeHtml(item.name)}</div>
-                <div style="font-size:0.78rem;color:var(--smoke)">${escapeHtml(item.fabric || '')} Â· Quantity: ${item.quantity}</div>
+                <div style="font-size:0.78rem;color:var(--smoke)">${escapeHtml(item.fabric || '')} • Quantity: ${item.quantity}</div>
               </div>
               <div style="font-weight:700;color:var(--crimson)">${formatPrice(item.price * item.quantity)}</div>
             </div>`).join('')}
@@ -245,7 +245,7 @@
             <span>Total Payable</span><span>${formatPrice(order.total_amount)}</span>
           </div>
           <div style="font-size:0.82rem;color:var(--smoke);margin-top:10px;">
-            Payment Method: <strong>${escapeHtml(order.payment_method || 'COD')}</strong> &nbsp;Â·&nbsp; Payment Status: <span style="font-weight:600;color:${order.payment_status==='Paid'?'var(--success)':'var(--warning)'}">${escapeHtml(order.payment_status || 'Pending')}</span>
+            Payment Method: <strong>${escapeHtml(order.payment_method || 'COD')}</strong> &nbsp;•&nbsp; Payment Status: <span style="font-weight:600;color:${order.payment_status==='Paid'?'var(--success)':'var(--warning)'}">${escapeHtml(order.payment_status || 'Pending')}</span>
           </div>
         </div>`;
     } catch (err) {
