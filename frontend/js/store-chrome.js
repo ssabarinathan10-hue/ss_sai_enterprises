@@ -22,14 +22,6 @@ function storeHeader(active = '') {
       <span class="navbar-logo-main">SS SAI</span>
       <span class="navbar-logo-sub">Enterprises</span>
     </a>
-    <div class="navbar-nav">
-      <a href="/" class="nav-link ${active === 'home' ? 'active' : ''}">Home</a>
-      <a href="/shop" class="nav-link ${active === 'shop' ? 'active' : ''}">Shop All</a>
-      <a href="/shop?category=silk-sarees" class="nav-link">Silk</a>
-      <a href="/shop?category=cotton-sarees" class="nav-link">Cotton</a>
-      <a href="/shop?category=designer-sarees" class="nav-link">Designer</a>
-      <a href="/shop?category=bridal-sarees" class="nav-link">Bridal</a>
-    </div>
     <div class="navbar-actions">
       <a href="/shop" class="nav-action-btn" title="Search sarees" aria-label="Search">${CHROME_ICONS.search}</a>
       <a href="/cart" class="nav-action-btn" title="Shopping Bag" aria-label="Shopping bag">
@@ -46,23 +38,9 @@ function storeHeader(active = '') {
           ${CHROME_ICONS.logout}
         </button>
       </div>
-      <button class="nav-hamburger" type="button" onclick="toggleMobile()" aria-label="Open navigation menu">
-        <span></span><span></span><span></span>
-      </button>
     </div>
   </div>
-</nav>
-<div class="mobile-menu" id="mobile-menu">
-  <a href="/" class="nav-link ${active === 'home' ? 'active' : ''}">Home</a>
-  <a href="/shop" class="nav-link ${active === 'shop' ? 'active' : ''}">Shop All Sarees</a>
-  <a href="/shop?category=silk-sarees" class="nav-link">Silk Sarees</a>
-  <a href="/shop?category=cotton-sarees" class="nav-link">Cotton Sarees</a>
-  <a href="/shop?category=designer-sarees" class="nav-link">Designer Sarees</a>
-  <a href="/shop?category=bridal-sarees" class="nav-link">Bridal Collection</a>
-  <a href="/cart" class="nav-link">Shopping Bag</a>
-  <a href="/orders" class="nav-link ${active === 'orders' ? 'active' : ''}">My Orders</a>
-  <a href="/login" class="nav-link">Account / Sign In</a>
-</div>`;
+</nav>`;
 }
 
 function storeFooter() {
