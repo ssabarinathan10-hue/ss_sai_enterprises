@@ -244,13 +244,18 @@ const uploadProductImage = (req, res) => {
     return res.status(400).json({ success: false, message: 'Image must be smaller than 5MB.' });
   }
 
-  const dir = path.join(__dirname, '../../frontend/images/uploads');
-  if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+  // Use persistent disk path in production, fallback to frontend/images/uploads locally
+  const uploadsDir = process.env.UPLOADS_PATH
+    ? path.join(process.env.UPLOADS_PATH)
+    : path.join(__dirname, '../../frontend/images/uploads');
+
+  if (!fs.existsSync(uploadsDir)) fs.mkdirSync(uploadsDir, { recursive: true });
 
   const safeName = String(filename || 'saree').replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '').slice(0, 40);
   const stored = `${safeName || 'saree'}-${Date.now()}.${ext}`;
-  fs.writeFile(path.join(dir, stored), buffer, (err) => {
+  fs.writeFile(path.join(uploadsDir, stored), buffer, (err) => {
     if (err) return res.status(500).json({ success: false, message: 'Failed to save image.' });
+    // Always return a URL relative to /images/uploads so the backend can serve it
     res.json({ success: true, image_url: `/images/uploads/${stored}` });
   });
 };

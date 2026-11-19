@@ -1,19 +1,25 @@
 {
-  "name": "backend",
+  "name": "ss-sai-enterprises-backend",
   "version": "1.0.0",
-  "description": "",
+  "description": "SS SAI Enterprises — Saree Store Express REST API",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node server.js",
+    "dev": "node server.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "SS SAI Enterprises",
   "license": "ISC",
   "type": "commonjs",
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "dependencies": {
-    "cors": "^2.8.6",
-    "express": "^5.2.1",
-    "sqlite3": "^6.0.1"
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
+    "sqlite3": "^5.1.7"
   }
 }

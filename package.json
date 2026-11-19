@@ -1,13 +1,16 @@
 {
-  "name": "online-saree-business",
+  "name": "ss-sai-enterprises",
   "version": "1.0.0",
-  "description": "Premium Online Saree Business E-Commerce Platform",
+  "description": "SS SAI Enterprises — Premium Online Saree Business E-Commerce Platform",
   "main": "backend/server.js",
   "scripts": {
-    "build": "node scripts/build.js",
     "start": "node backend/server.js",
     "dev": "node backend/server.js",
+    "build": "node scripts/build.js",
     "seed": "node backend/config/db.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

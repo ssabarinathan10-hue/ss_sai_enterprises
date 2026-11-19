@@ -1,24 +1,48 @@
+# ─────────────────────────────────────────────────────────────
+# SS SAI Enterprises — .gitignore
+# ─────────────────────────────────────────────────────────────
+
 # Node dependencies
 node_modules/
 backend/node_modules/
 
-# Environment files
+# Environment files — NEVER commit these
 .env
 .env.local
 .env.production
+backend/.env
+backend/.env.local
+backend/.env.production
 
 # Build output
 dist/
 
-# SQLite WAL and shm files
+# SQLite database files — stored on Render persistent disk in production
+# Local database is re-created from seed data on first run
+database/*.db
 database/*.db-wal
 database/*.db-shm
+database/*.db-journal
+
+# Uploaded product images (served from persistent disk on Render)
+frontend/images/uploads/
 
 # OS generated files
 .DS_Store
 Thumbs.db
+*.swp
+*.swo
+
+# IDE files
+.vscode/
+.idea/
 
 # Netlify dev cache
 .netlify/
-database/*.db
-database/*.db-journal
+
+# Logs
+*.log
+npm-debug.log*
+
+# Lock files (keep package-lock.json but allow regeneration)
+# backend/package-lock.json is kept for reproducible installs

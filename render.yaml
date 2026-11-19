@@ -1,0 +1,41 @@
+# ─────────────────────────────────────────────────────────────
+# SS SAI Enterprises — Render Deployment Configuration
+# Backend: Node.js Express API
+# Database: SQLite on Persistent Disk
+# ─────────────────────────────────────────────────────────────
+
+services:
+  - type: web
+    name: ss-sai-enterprises-api
+    runtime: node
+    region: singapore
+    plan: free
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: node server.js
+    healthCheckPath: /api/health
+
+    # Environment Variables (set secrets in Render Dashboard)
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: DB_PATH
+        value: /var/data/saree_store.db
+      - key: UPLOADS_PATH
+        value: /var/data/uploads
+      - key: JWT_SECRET
+        generateValue: true   # Render auto-generates a secure value
+      - key: CORS_ORIGIN
+        value: https://ss-sai-enterprises.netlify.app
+      - key: ADMIN_EMAIL
+        value: vimala@sssai.in
+      - key: ADMIN_PASSWORD
+        value: Admin@123
+
+    # Persistent Disk — keeps SQLite DB and uploaded images
+    disk:
+      name: saree-store-data
+      mountPath: /var/data
+      sizeGB: 1

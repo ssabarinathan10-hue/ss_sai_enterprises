@@ -73,8 +73,15 @@ const adminLogin = (req, res) => {
   if (!email || !password)
     return res.status(400).json({ success: false, message: 'Email and password are required.' });
 
-  if ((email === 'admin@vasanthisilks.com' && password === 'Admin@123') ||
-      (email === 'vimala@sssai.in' && (password === 'demo1234' || password === 'Admin@123'))) {
+  // Primary admin credentials from environment variables
+  const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'vimala@sssai.in';
+  const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'Admin@123';
+  const ADMIN_EMAIL_2 = 'admin@vasanthisilks.com';
+  const ADMIN_PASSWORD_2 = process.env.ADMIN_PASSWORD || 'Admin@123';
+
+  if ((email === ADMIN_EMAIL && password === ADMIN_PASSWORD) ||
+      (email === ADMIN_EMAIL_2 && password === ADMIN_PASSWORD_2) ||
+      (email === 'vimala@sssai.in' && password === 'demo1234')) {
     const token = jwt.sign({ id: 0, email, name: 'Vimala (Admin)', role: 'admin' }, JWT_SECRET, { expiresIn: '7d' });
     return res.json({ success: true, message: 'Admin login successful!', token, user: { id: 0, name: 'Vimala', email, role: 'admin' } });
   }
