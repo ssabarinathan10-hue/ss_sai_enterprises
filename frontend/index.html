@@ -556,18 +556,9 @@ const ICONS = {
   sparkle: `<svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:middle"><path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z"/></svg>`
 };
 
-/* ── Product data (fallback; overridden by API) ───────────── */
-let P=[
-  {id:1,n:'Kanchipuram Silk Saree',c:'Silk',p:18500,o:22000,t:'Bestseller',b:'#8a1230',a:'#e8cf94',k:0,f:'Pure mulberry silk, zari border',img:'/images/saree_slide_1.jpg'},
-  {id:2,n:'Banarasi Bridal Saree',c:'Bridal',p:24800,o:29000,t:'New Arrival',b:'#5a0f26',a:'#d9b866',k:1,f:'Banarasi brocade, gold zari',img:'/images/saree_slide_2.jpg'},
-  {id:3,n:'Soft Cotton Saree',c:'Cotton',p:2450,o:2900,t:'',b:'#2f6b5e',a:'#f2e4c4',k:2,f:'Handloom soft cotton',img:'/images/saree_slide_3.jpg'},
-  {id:4,n:'Designer Festive Saree',c:'Designer',p:9600,o:11500,t:'New Arrival',b:'#1f3a6b',a:'#e8cf94',k:1,f:'Georgette with sequin work',img:'/images/saree_slide_4.jpg'},
-  {id:5,n:'Traditional Zari Silk Saree',c:'Silk',p:14200,o:16500,t:'Bestseller',b:'#c47a1c',a:'#fff2cf',k:0,f:'Silk with woven zari',img:'/images/saree_slide_1.jpg'},
-  {id:6,n:'Elegant Floral Saree',c:'Designer',p:6800,o:0,t:'',b:'#b8556a',a:'#fde9d4',k:2,f:'Organza, printed florals',img:'/images/saree_slide_4.jpg'},
-  {id:7,n:'Temple Border Bridal Silk',c:'Bridal',p:21000,o:25000,t:'Bestseller',b:'#431321',a:'#c6a15b',k:0,f:'Kanchipuram silk, korvai border',img:'/images/saree_slide_2.jpg'},
-  {id:8,n:'Everyday Linen Cotton',c:'Cotton',p:1890,o:0,t:'',b:'#8a7a5c',a:'#fff9f1',k:2,f:'Linen-blend cotton',img:'/images/saree_slide_3.jpg'}
-];
-let ORD=[['#1042','Anitha R.','Kanchipuram Silk Saree',18500,'Shipped'],['#1041','Meena K.','Soft Cotton Saree',2450,'Pending'],['#1040','Priya S.','Banarasi Bridal Saree',24800,'Delivered'],['#1039','Lakshmi D.','Designer Festive Saree',9600,'Cancelled']];
+/* ── Product data (loaded from API) ───────────────────────── */
+let P=[];
+let ORD=[];
 let cart={},wish=new Set(),cat='All',sort='f',view={tab:'dash',auth:false,token:localStorage.getItem('adminToken')||''};
 
 /* ── Backend data loading ───────────────────────────────────── */
@@ -576,7 +567,7 @@ async function loadBackendData(){
     const apiBase = window.API_BASE || '/api';
     const r=await fetch(`${apiBase}/products?limit=100`);
     const d=await r.json();
-    if(d.success&&d.products&&d.products.length){
+    if(d.success && d.products){
       const colors=[['#8a1230','#e8cf94'],['#5a0f26','#d9b866'],['#2f6b5e','#f2e4c4'],['#1f3a6b','#e8cf94'],['#c47a1c','#fff2cf'],['#b8556a','#fde9d4'],['#431321','#c6a15b'],['#8a7a5c','#fff9f1']];
       P=d.products.map((p,i)=>{
         const col=colors[i%colors.length];
@@ -852,12 +843,16 @@ function nextHeroSlide(){goHeroSlide((heroIdx+1)%HERO_SLIDES.length)}
 /* ── 3D SHOWROOM BUILD ──────────────────────────────────────── */
 function buildShowroom(){
   const stage=$('#sr-stage');if(!stage)return;
-  // Pick 5 products for the showroom
+  // Pick up to 5 products for the showroom
   const picks=P.slice(0,5);
+  if(!picks.length){
+    stage.innerHTML=`<div style="text-align:center;color:var(--ivory);opacity:0.85;padding:60px 20px;grid-column:1/-1;width:100%;"><p style="font-family:'Cormorant Garamond',serif;font-size:24px;letter-spacing:0.04em;">Exclusive Heritage Collection Arriving Soon</p><p style="font-size:13px;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold);margin-top:8px;">Handcrafted by Master Weavers</p></div>`;
+    return;
+  }
   const positions=['sr-l2','sr-l1','sr-c','sr-r1','sr-r2'];
   stage.innerHTML=picks.map((p,i)=>`
-    <div class="sr-panel ${positions[i]}"
-         style="background-image:${pi(p)};background-color:${p.b}"
+    <div class="sr-panel ${positions[i] || 'sr-c'}"
+         style="background-image:${pi(p)};background-color:${p.b || '#8a1230'}"
          onclick="location.hash='#/p/${p.id}'"
          title="${p.n}">
       <div class="sr-panel-label">

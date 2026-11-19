@@ -87,12 +87,12 @@ const createOrder = (req, res) => {
 const getOrders = (req, res) => {
   const isAdmin = req.user && (req.user.role === 'admin' || req.user.id === 0);
   const sql = isAdmin 
-    ? `SELECT o.*, GROUP_CONCAT(p.name || ' (x' || oi.quantity || ')') as items_summary
+    ? `SELECT o.*, GROUP_CONCAT(COALESCE(p.name, 'Saree Item') || ' (x' || oi.quantity || ')') as items_summary
        FROM orders o 
        LEFT JOIN order_items oi ON o.id = oi.order_id
        LEFT JOIN products p ON oi.product_id = p.id
        GROUP BY o.id ORDER BY o.created_at DESC`
-    : `SELECT o.*, GROUP_CONCAT(p.name || ' (x' || oi.quantity || ')') as items_summary
+    : `SELECT o.*, GROUP_CONCAT(COALESCE(p.name, 'Saree Item') || ' (x' || oi.quantity || ')') as items_summary
        FROM orders o 
        LEFT JOIN order_items oi ON o.id = oi.order_id
        LEFT JOIN products p ON oi.product_id = p.id
@@ -112,7 +112,7 @@ const getOrderById = (req, res) => {
     if (!order) return res.status(404).json({ success: false, message: 'Order not found.' });
 
     db.all(
-      `SELECT oi.*, p.name, p.image_url, p.fabric FROM order_items oi JOIN products p ON oi.product_id = p.id WHERE oi.order_id = ?`,
+      `SELECT oi.*, COALESCE(p.name, 'Saree Item') as name, p.image_url, p.fabric FROM order_items oi LEFT JOIN products p ON oi.product_id = p.id WHERE oi.order_id = ?`,
       [order.id],
       (err2, items) => {
         if (err2) items = [];

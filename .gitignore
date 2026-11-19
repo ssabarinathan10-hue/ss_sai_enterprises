@@ -23,6 +23,7 @@ database/*.db
 database/*.db-wal
 database/*.db-shm
 database/*.db-journal
+database/*.backup
 
 # Uploaded product images (served from persistent disk on Render)
 frontend/images/uploads/
